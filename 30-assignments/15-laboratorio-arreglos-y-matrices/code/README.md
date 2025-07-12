@@ -2,16 +2,28 @@
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ para gestión de inventarios, análisis de texto y operaciones con matrices mediante un menú interactivo, con capacidad de persistencia de datos en archivos.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- **Gestión avanzada de productos**:
+  - CRUD completo (Crear, Leer, Actualizar, Eliminar)
+  - Búsqueda por valor máximo
+  - Persistencia en archivos
+- **Análisis de texto completo**:
+  - Descomposición de frases en palabras
+  - Cálculo de longitudes
+  - Manejo de límites de tamaño
+- **Operaciones matriciales avanzadas**:
+  - Suma/Resta/Multiplicación
+  - Traspuesta y puntos silla
+  - Tamaño configurable
+- **Tipos estructurados**:
+  - Productos con ID, precio y unidades
+  - Matrices NxN con constantes configurables
+- **Manejo robusto de archivos**:
+  - Lectura/escritura segura
+  - Modo append para añadir productos
 
 ## Estructura de directorios
 

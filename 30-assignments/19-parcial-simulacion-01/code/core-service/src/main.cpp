@@ -1,77 +1,309 @@
-#include <iostream> // Incluye la librería iostream para entrada/salida de datos
-#include <cmath>    // Incluye la librería cmath para funciones matemáticas como pow (potencia)
+#include <iostream> // Para entrada y salida (cin, cout)
+#include <fstream>  // Para manejo de archivos (ifstream, ofstream)
+#include <string>   // Para usar std::string
+#include <limits>   // Para std::numeric_limits
+#include <iomanip>  // Para formatear la salida (setw, left)
 
-// La función main es el punto de entrada de todo programa C++
+// --- Constantes ---
+#define MAX_CLIENTES 100 // Máximo número de clientes en el array
+const char* NOMBRE_ARCHIVO_CLIENTES = "clientes.txt";
+
+// --- Definición de tipos con typedef ---
+
+// Consigna 1.a (implícita): Declarar tipo tCliente
+typedef struct {
+    int codigoCliente; // Código del cliente (índice + 100)
+    std::string dni;
+    std::string apellido;
+    std::string nombre;
+} tCliente;
+
+// Consigna 1 (implícita): Estructura para manejar la lista de clientes
+typedef struct {
+    tCliente clientes[MAX_CLIENTES];
+    int cantidad; // Número actual de clientes en la lista
+} tListaClientes;
+
+
+// --- Prototipos de Funciones ---
+
+// Funciones de utilidad para archivo y datos
+void cargarClientesDesdeArchivo(tListaClientes* lista);
+void guardarClientesEnArchivo(const tListaClientes* lista);
+int generarCodigoCliente(int indice); // Consigna 1.a: Código del cliente se obtiene sumando 100 al índice
+
+// Consigna 1: Gestionar los Clientes
+// Consigna 1.a: Dar de alta el cliente
+void darDeAltaCliente(tListaClientes* lista);
+// Consigna 1.b: Dar de Baja los clientes x código de cliente
+void darDeBajaCliente(tListaClientes* lista, int codigo);
+// Consigna 1.c: Modificar los clientes
+void modificarCliente(tListaClientes* lista, int codigo);
+
+// Consigna 2: Listar los Clientes
+// Consigna 2.a: Listar todos los Clientes
+void listarTodosLosClientes(const tListaClientes* lista);
+// Consigna 2.b: Buscar un Clientes x código y mostrarlo
+void buscarClientePorCodigo(const tListaClientes* lista, int codigo);
+
+// Función para mostrar el menú principal
+void mostrarMenu();
+
+
 int main() {
-    // --- Ejercicio 1: Operaciones básicas y mostrar resultados ---
+    tListaClientes listaClientes;
+    listaClientes.cantidad = 0; // Inicializar la cantidad de clientes
 
-    std::cout << "--- Ejercicio 1: Operaciones basicas ---" << std::endl;
+    // Cargar clientes existentes al inicio del programa
+    cargarClientesDesdeArchivo(&listaClientes);
 
-    // a. La suma de 45 + 34
-    std::cout << "a. Suma de 45 + 34 = " << (45 + 34) << std::endl;
+    int opcion;
 
-    // b. La resta de 45 - 40
-    std::cout << "b. Resta de 45 - 40 = " << (45 - 40) << std::endl;
+    do {
+        mostrarMenu();
+        std::cout << "Ingrese su opcion: ";
+        std::cin >> opcion;
 
-    // c. La division de 46 y 3
-    // Nota: La division de enteros truncara el resultado. Para un resultado decimal,
-    // al menos uno de los operandos debe ser de tipo flotante (double o float).
-    std::cout << "c. Division de 46 y 3 (entera) = " << (46 / 3) << std::endl;
-    std::cout << "c. Division de 46 y 3 (decimal) = " << (static_cast<double>(46) / 3) << std::endl;
+        // Limpiar el buffer de entrada después de leer un entero
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    // d. Un programa que multiplique 65 * 3
-    std::cout << "d. Multiplicacion de 65 * 3 = " << (65 * 3) << std::endl;
+        switch (opcion) {
+            case 1: { // Consigna 1.a: Dar de alta el cliente
+                darDeAltaCliente(&listaClientes);
+                break;
+            }
+            case 2: { // Consigna 1.b: Dar de Baja los clientes x código de cliente
+                int codigoBaja;
+                std::cout << "Ingrese el codigo del cliente a dar de baja: ";
+                std::cin >> codigoBaja;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                darDeBajaCliente(&listaClientes, codigoBaja);
+                break;
+            }
+            case 3: { // Consigna 1.c: Modificar los clientes
+                int codigoModificar;
+                std::cout << "Ingrese el codigo del cliente a modificar: ";
+                std::cin >> codigoModificar;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                modificarCliente(&listaClientes, codigoModificar);
+                break;
+            }
+            case 4: { // Consigna 2.a: Listar todos los Clientes
+                listarTodosLosClientes(&listaClientes);
+                break;
+            }
+            case 5: { // Consigna 2.b: Buscar un Clientes x código y mostrarlo
+                int codigoBuscar;
+                std::cout << "Ingrese el codigo del cliente a buscar: ";
+                std::cin >> codigoBuscar;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                buscarClientePorCodigo(&listaClientes, codigoBuscar);
+                break;
+            }
+            case 0:
+                std::cout << "Saliendo del programa. Guardando cambios..." << std::endl;
+                guardarClientesEnArchivo(&listaClientes); // Guardar cambios al salir
+                break;
+            default:
+                std::cout << "Opcion invalida. Por favor, intente de nuevo." << std::endl;
+                break;
+        }
+    } while (opcion != 0);
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+    return 0;
+}
 
-    // --- Ejercicio 2: Uso de variables y operadores ---
 
-    std::cout << "--- Ejercicio 2: Uso de variables y operadores ---" << std::endl;
+// --- Implementaciones de Funciones ---
 
-    // a. Calcula el volumen de una habitacion
-    // Declaracion e inicializacion de variables para las dimensiones de la habitacion
-    double largo_habitacion = 5.0;  // metros
-    double ancho_habitacion = 4.0;  // metros
-    double alto_habitacion = 2.5;   // metros
+// Función para mostrar el menú principal
+void mostrarMenu() {
+    std::cout << "\n--- MENU DE GESTION DE CLIENTES ---" << std::endl;
+    std::cout << "1. Dar de Alta Cliente" << std::endl;
+    std::cout << "2. Dar de Baja Cliente" << std::endl;
+    std::cout << "3. Modificar Cliente" << std::endl;
+    std::cout << "4. Listar Todos los Clientes" << std::endl;
+    std::cout << "5. Buscar Cliente por Codigo" << std::endl;
+    std::cout << "0. Salir" << std::endl;
+}
 
-    // Calculo del volumen
-    double volumen_habitacion = largo_habitacion * ancho_habitacion * alto_habitacion;
+// Carga clientes desde el archivo al inicio del programa
+void cargarClientesDesdeArchivo(tListaClientes* lista) {
+    std::ifstream archivo(NOMBRE_ARCHIVO_CLIENTES);
+    if (!archivo.is_open()) {
+        std::cerr << "Advertencia: No se pudo abrir el archivo de clientes. Se creara uno nuevo al guardar." << std::endl;
+        return;
+    }
 
-    // Mostrar el resultado
-    std::cout << "a. El volumen de la habitacion es: " << volumen_habitacion << " metros cubicos." << std::endl;
+    lista->cantidad = 0;
+    int codigo;
+    std::string dni, apellido, nombre;
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+    while (archivo >> codigo >> dni >> apellido >> nombre && lista->cantidad < MAX_CLIENTES) {
+        lista->clientes[lista->cantidad].codigoCliente = codigo;
+        lista->clientes[lista->cantidad].dni = dni;
+        lista->clientes[lista->cantidad].apellido = apellido;
+        lista->clientes[lista->cantidad].nombre = nombre;
+        lista->cantidad++;
+    }
+    archivo.close();
+    std::cout << "Clientes cargados desde " << NOMBRE_ARCHIVO_CLIENTES << std::endl;
+}
 
-    // b. Calcula el volumen de un cono
-    // Declaracion e inicializacion de variables para el cono
-    double radio_base_cono = 14.5;  // unidades
-    double altura_cono = 26.79;     // unidades
-    const double PI = 3.14;         // Definicion de la constante PI
+// Guarda todos los clientes en el archivo (sobrescribe el archivo)
+void guardarClientesEnArchivo(const tListaClientes* lista) {
+    std::ofstream archivo(NOMBRE_ARCHIVO_CLIENTES); // Abre en modo truncar (sobrescribir)
+    if (!archivo.is_open()) {
+        std::cerr << "Error: No se pudo abrir el archivo de clientes para guardar." << std::endl;
+        return;
+    }
 
-    // Formula para el volumen del cono: (Pi * (radio)^2 * altura) / 3
-    // Usamos pow(base, exponente) de la libreria cmath para calcular el radio al cuadrado
-    double volumen_cono = (PI * pow(radio_base_cono, 2) * altura_cono) / 3;
+    for (int i = 0; i < lista->cantidad; ++i) {
+        archivo << lista->clientes[i].codigoCliente << " "
+                << lista->clientes[i].dni << " "
+                << lista->clientes[i].apellido << " "
+                << lista->clientes[i].nombre << std::endl;
+    }
+    archivo.close();
+    std::cout << "Clientes guardados en " << NOMBRE_ARCHIVO_CLIENTES << std::endl;
+}
 
-    // Mostrar el resultado
-    std::cout << "b. El volumen del cono es: " << volumen_cono << " unidades cubicas." << std::endl;
+// Consigna 1.a: Generar código de cliente (índice + 100)
+int generarCodigoCliente(int indice) {
+    return indice + 100;
+}
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+// Consigna 1.a: Dar de alta el cliente
+void darDeAltaCliente(tListaClientes* lista) {
+    if (lista->cantidad >= MAX_CLIENTES) {
+        std::cout << "Error: No se pueden agregar mas clientes. Limite alcanzado." << std::endl;
+        return;
+    }
 
-    // c. Modificar el programa anterior para que usen variables Dobles
-    // En este caso, ya hemos usado variables de tipo 'double' para los calculos del cono
-    // en el apartado 'b'. Esto asegura una mayor precision en los resultados decimales.
+    tCliente nuevoCliente;
+    nuevoCliente.codigoCliente = generarCodigoCliente(lista->cantidad); // Asigna código basado en el índice
 
-    std::cout << "c. Modificacion para usar variables Dobles:" << std::endl;
-    std::cout << "   Para el calculo del volumen del cono en el apartado 'b', ya se utilizaron" << std::endl;
-    std::cout << "   variables de tipo 'double' (radio_base_cono, altura_cono, PI, volumen_cono)." << std::endl;
-    std::cout << "   La principal diferencia al usar 'double' en lugar de 'float' (o enteros para divisiones)" << std::endl;
-    std::cout << "   es la PRECISION. 'double' almacena numeros de punto flotante con doble precision," << std::endl;
-    std::cout << "   lo que significa que puede representar un rango mas amplio de valores y con mas" << std::endl;
-    std::cout << "   decimales significativos. Esto es crucial para calculos cientificos o de ingenieria" << std::endl;
-    std::cout << "   donde la exactitud es fundamental." << std::endl;
-    std::cout << "   Por ejemplo, si hubieramos usado 'float' para PI (3.14f) o para las dimensiones," << std::endl;
-    std::cout << "   el resultado del volumen podria tener una ligera diferencia debido a la menor precision." << std::endl;
-    std::cout << "   Con 'double', el resultado es mas cercano al valor matematicamente exacto." << std::endl;
+    std::cout << "\n--- Dar de Alta Nuevo Cliente ---" << std::endl;
+    std::cout << "Codigo de Cliente asignado: " << nuevoCliente.codigoCliente << std::endl;
+    std::cout << "Ingrese DNI: ";
+    std::getline(std::cin, nuevoCliente.dni);
+    std::cout << "Ingrese Apellido: ";
+    std::getline(std::cin, nuevoCliente.apellido);
+    std::cout << "Ingrese Nombre: ";
+    std::getline(std::cin, nuevoCliente.nombre);
 
-    return 0; // Indica que el programa finalizo correctamente
+    lista->clientes[lista->cantidad] = nuevoCliente;
+    lista->cantidad++;
+    std::cout << "Cliente dado de alta exitosamente." << std::endl;
+
+    guardarClientesEnArchivo(lista); // Guardar cambios inmediatamente
+}
+
+// Consigna 1.b: Dar de Baja los clientes x código de cliente
+void darDeBajaCliente(tListaClientes* lista, int codigo) {
+    int indiceEncontrado = -1;
+    for (int i = 0; i < lista->cantidad; ++i) {
+        if (lista->clientes[i].codigoCliente == codigo) {
+            indiceEncontrado = i;
+            break;
+        }
+    }
+
+    if (indiceEncontrado != -1) {
+        // Desplazar los elementos restantes para eliminar
+        for (int i = indiceEncontrado; i < lista->cantidad - 1; ++i) {
+            lista->clientes[i] = lista->clientes[i + 1];
+        }
+        lista->cantidad--; // Decrementar la cantidad de clientes
+        std::cout << "Cliente con codigo " << codigo << " dado de baja exitosamente." << std::endl;
+        guardarClientesEnArchivo(lista); // Guardar cambios inmediatamente
+    } else {
+        std::cout << "Cliente con codigo " << codigo << " no encontrado." << std::endl;
+    }
+}
+
+// Consigna 1.c: Modificar los clientes
+void modificarCliente(tListaClientes* lista, int codigo) {
+    int indiceEncontrado = -1;
+    for (int i = 0; i < lista->cantidad; ++i) {
+        if (lista->clientes[i].codigoCliente == codigo) {
+            indiceEncontrado = i;
+            break;
+        }
+    }
+
+    if (indiceEncontrado != -1) {
+        std::cout << "\n--- Modificar Cliente (Codigo: " << codigo << ") ---" << std::endl;
+        std::cout << "Datos actuales:" << std::endl;
+        std::cout << "  DNI: " << lista->clientes[indiceEncontrado].dni << std::endl;
+        std::cout << "  Apellido: " << lista->clientes[indiceEncontrado].apellido << std::endl;
+        std::cout << "  Nombre: " << lista->clientes[indiceEncontrado].nombre << std::endl;
+
+        std::cout << "\nIngrese nuevo DNI (o presione Enter para mantener): ";
+        std::string nuevoDni;
+        std::getline(std::cin, nuevoDni);
+        if (!nuevoDni.empty()) {
+            lista->clientes[indiceEncontrado].dni = nuevoDni;
+        }
+
+        std::cout << "Ingrese nuevo Apellido (o presione Enter para mantener): ";
+        std::string nuevoApellido;
+        std::getline(std::cin, nuevoApellido);
+        if (!nuevoApellido.empty()) {
+            lista->clientes[indiceEncontrado].apellido = nuevoApellido;
+        }
+
+        std::cout << "Ingrese nuevo Nombre (o presione Enter para mantener): ";
+        std::string nuevoNombre;
+        std::getline(std::cin, nuevoNombre);
+        if (!nuevoNombre.empty()) {
+            lista->clientes[indiceEncontrado].nombre = nuevoNombre;
+        }
+
+        std::cout << "Cliente modificado exitosamente." << std::endl;
+        guardarClientesEnArchivo(lista); // Guardar cambios inmediatamente
+    } else {
+        std::cout << "Cliente con codigo " << codigo << " no encontrado." << std::endl;
+    }
+}
+
+// Consigna 2.a: Listar todos los Clientes
+void listarTodosLosClientes(const tListaClientes* lista) {
+    if (lista->cantidad == 0) {
+        std::cout << "No hay clientes para mostrar." << std::endl;
+        return;
+    }
+    std::cout << "\n--- LISTADO DE CLIENTES ---" << std::endl;
+    std::cout << std::left << std::setw(10) << "Codigo"
+              << std::setw(15) << "DNI"
+              << std::setw(20) << "Apellido"
+              << std::setw(20) << "Nombre" << std::endl;
+    std::cout << "------------------------------------------------------------------" << std::endl;
+    for (int i = 0; i < lista->cantidad; ++i) {
+        std::cout << std::left << std::setw(10) << lista->clientes[i].codigoCliente
+                  << std::setw(15) << lista->clientes[i].dni
+                  << std::setw(20) << lista->clientes[i].apellido
+                  << std::setw(20) << lista->clientes[i].nombre << std::endl;
+    }
+    std::cout << "------------------------------------------------------------------" << std::endl;
+}
+
+// Consigna 2.b: Buscar un Clientes x código y mostrarlo
+void buscarClientePorCodigo(const tListaClientes* lista, int codigo) {
+    int indiceEncontrado = -1;
+    for (int i = 0; i < lista->cantidad; ++i) {
+        if (lista->clientes[i].codigoCliente == codigo) {
+            indiceEncontrado = i;
+            break;
+        }
+    }
+
+    if (indiceEncontrado != -1) {
+        std::cout << "\n--- Cliente Encontrado (Codigo: " << codigo << ") ---" << std::endl;
+        std::cout << "  DNI: " << lista->clientes[indiceEncontrado].dni << std::endl;
+        std::cout << "  Apellido: " << lista->clientes[indiceEncontrado].apellido << std::endl;
+        std::cout << "  Nombre: " << lista->clientes[indiceEncontrado].nombre << std::endl;
+    } else {
+        std::cout << "Cliente con codigo " << codigo << " NO encontrado." << std::endl;
+    }
 }

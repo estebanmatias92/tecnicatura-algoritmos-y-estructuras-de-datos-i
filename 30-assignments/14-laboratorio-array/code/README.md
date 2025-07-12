@@ -2,16 +2,19 @@
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ para generación y visualización de arrays numéricos con diferentes criterios de selección.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- **Generación de arrays**:  
+  - 100 primeros números enteros  
+  - Números primos entre 1-100  
+  - Números impares entre 1-100  
+- **Visualización formateada**: 10 números por línea para mejor legibilidad  
+- **Algoritmos eficientes**:  
+  - Detección de números primos optimizada  
+  - Identificación rápida de impares  
+- **Tipos personalizados**: typedef para claridad en enteros y booleanos  
 
 ## Estructura de directorios
 

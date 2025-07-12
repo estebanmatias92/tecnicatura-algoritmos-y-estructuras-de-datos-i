@@ -2,16 +2,26 @@
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ para gestión completa de clientes con persistencia en archivos, que permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre registros de clientes.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- **Gestión completa de clientes**:  
+  - Altas con generación automática de códigos  
+  - Bajas por código de cliente  
+  - Modificación de datos existentes  
+- **Búsqueda y listado**:  
+  - Listado completo con formato tabular  
+  - Búsqueda individual por código  
+- **Persistencia de datos**:  
+  - Carga automática al iniciar  
+  - Guardado automático al modificar  
+- **Validaciones y seguridad**:  
+  - Límite máximo de clientes  
+  - Manejo seguro de entrada/salida  
+- **Interfaz intuitiva**:  
+  - Menú interactivo claro  
+  - Formateo profesional de salidas  
 
 ## Estructura de directorios
 
