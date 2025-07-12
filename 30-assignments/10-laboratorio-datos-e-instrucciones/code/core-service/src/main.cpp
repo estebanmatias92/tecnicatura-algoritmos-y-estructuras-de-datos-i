@@ -1,37 +1,25 @@
 #include <iostream> // Para entrada y salida (cin, cout)
 #include <string>   // Para usar std::string
-#include <vector>   // Para usar std::vector
 #include <iomanip>  // Para formatear la salida (setw, left)
 
-// --- Tipos Enumerados y Estructuras (Consigna: Se recomienda utilizar Tipos definidos x el usuario y Enumeradores) ---
+// Define un tamaño máximo para los arrays de frutas
+#define MAX_FRUTAS 10
 
-// Enumerador para los tipos de platos en el restaurante (Consigna 1.a)
-enum class TipoPlato {
+// --- Tipos Enumerados (enum) ---
+// Consigna: Se recomienda utilizar Enumeradores
+enum TipoPlato {
     PRIMER_PLATO = 1,
     PLATO_PRINCIPAL,
     POSTRE
 };
 
-// Estructura para representar una comanda de restaurante (Consigna 1.a)
-struct ComandaRestaurante {
-    int numeroMesa;
-    std::string nombreMozo;
-    std::string fecha;
-    std::string hora;
-    TipoPlato primerPlato;
-    TipoPlato platoPrincipal;
-    TipoPlato poste;
-};
-
-// Enumerador para las clases de vuelo (Consigna 1.b)
-enum class ClaseVuelo {
+enum ClaseVuelo {
     PRIMERA = 1,
     BUSINESS,
     ECONOMICA
 };
 
-// Enumerador para los códigos de aeropuerto (Consigna 1.b)
-enum class CodigoAeropuerto {
+enum CodigoAeropuerto {
     BAHIA_BLANCA = 1, // BHI
     AEROPARQUE,       // AER
     EL_PALOMAR,       // EPA
@@ -41,18 +29,7 @@ enum class CodigoAeropuerto {
     COMODORO_RIVADAVIA // CRD
 };
 
-// Estructura para representar una reserva de avión (Consigna 1.b)
-struct ReservaAvion {
-    std::string dni;
-    std::string apellido;
-    std::string nombre;
-    ClaseVuelo clase;
-    CodigoAeropuerto origen;
-    CodigoAeropuerto destino;
-};
-
-// Enumerador para las frutas en la verdulería (Consigna 1.c)
-enum class Fruta {
+enum Fruta {
     MANZANA = 1,
     BANANA,
     NARANJA,
@@ -61,14 +38,35 @@ enum class Fruta {
     KIWI
 };
 
-// Estructura para representar un pedido de verdulería al mayorista (Consigna 1.c)
-struct PedidoVerduleria {
+// --- Tipos Definidos por el Usuario (typedef struct) ---
+// Consigna: Se recomienda utilizar Tipos definidos x el usuario
+typedef struct {
+    int numeroMesa;
+    std::string nombreMozo;
+    std::string fecha;
+    std::string hora;
+    TipoPlato primerPlato;
+    TipoPlato platoPrincipal;
+    TipoPlato poste;
+} ComandaRestaurante;
+
+typedef struct {
+    std::string dni;
+    std::string apellido;
+    std::string nombre;
+    ClaseVuelo clase;
+    CodigoAeropuerto origen;
+    CodigoAeropuerto destino;
+} ReservaAvion;
+
+typedef struct {
     int codigoProveedor;
     std::string razonSocial;
     std::string fechaSolicitud;
     std::string fechaEntrega;
-    std::vector<Fruta> frutasPedidas; // Lista de frutas en el pedido
-};
+    Fruta frutasPedidas[MAX_FRUTAS]; // Array de frutas
+    int numFrutasPedidas;            // Contador de frutas en el array
+} PedidoVerduleria;
 
 
 // --- Prototipos de Funciones ---
@@ -165,9 +163,9 @@ void tomarYMostrarComanda() {
 // Helper para obtener el nombre del plato (Consigna 1.a)
 std::string obtenerNombrePlato(TipoPlato plato) {
     switch (plato) {
-        case TipoPlato::PRIMER_PLATO: return "Primer Plato";
-        case TipoPlato::PLATO_PRINCIPAL: return "Plato Principal";
-        case TipoPlato::POSTRE: return "Postre";
+        case PRIMER_PLATO: return "Primer Plato";
+        case PLATO_PRINCIPAL: return "Plato Principal";
+        case POSTRE: return "Postre";
         default: return "Desconocido";
     }
 }
@@ -217,9 +215,9 @@ void tomarYMostrarReservaAvion() {
 // Helper para obtener el nombre de la clase de vuelo (Consigna 1.b)
 std::string obtenerNombreClaseVuelo(ClaseVuelo clase) {
     switch (clase) {
-        case ClaseVuelo::PRIMERA: return "Primera";
-        case ClaseVuelo::BUSINESS: return "Business";
-        case ClaseVuelo::ECONOMICA: return "Economica";
+        case PRIMERA: return "Primera";
+        case BUSINESS: return "Business";
+        case ECONOMICA: return "Economica";
         default: return "Desconocida";
     }
 }
@@ -227,13 +225,13 @@ std::string obtenerNombreClaseVuelo(ClaseVuelo clase) {
 // Helper para obtener el nombre del aeropuerto (Consigna 1.b)
 std::string obtenerNombreAeropuerto(CodigoAeropuerto codigo) {
     switch (codigo) {
-        case CodigoAeropuerto::BAHIA_BLANCA: return "Bahia Blanca-BHI";
-        case CodigoAeropuerto::AEROPARQUE: return "Buenos Aires Aeroparque-AER";
-        case CodigoAeropuerto::EL_PALOMAR: return "Buenos Aires El Palomar-EPA";
-        case CodigoAeropuerto::EZEIZA: return "Buenos Aires Ezeiza-EZE";
-        case CodigoAeropuerto::BARILOCHE: return "San Carlos de Bariloche-BRC";
-        case CodigoAeropuerto::CATAMARCA: return "San Fernando del Valle de Catamarca-CTC";
-        case CodigoAeropuerto::COMODORO_RIVADAVIA: return "Comodoro Rivadavia-CRD";
+        case BAHIA_BLANCA: return "Bahia Blanca-BHI";
+        case AEROPARQUE: return "Buenos Aires Aeroparque-AER";
+        case EL_PALOMAR: return "Buenos Aires El Palomar-EPA";
+        case EZEIZA: return "Buenos Aires Ezeiza-EZE";
+        case BARILOCHE: return "San Carlos de Bariloche-BRC";
+        case CATAMARCA: return "San Fernando del Valle de Catamarca-CTC";
+        case COMODORO_RIVADAVIA: return "Comodoro Rivadavia-CRD";
         default: return "Desconocido";
     }
 }
@@ -242,6 +240,7 @@ std::string obtenerNombreAeropuerto(CodigoAeropuerto codigo) {
 void tomarYMostrarPedidoVerduleria() {
     PedidoVerduleria pedido;
     int opcionFruta;
+    pedido.numFrutasPedidas = 0; // Inicializar el contador de frutas
 
     std::cout << "\n--- Armar Pedido para Mayorista (Verduleria) ---" << std::endl;
     std::cout << "Codigo de Proveedor: ";
@@ -263,13 +262,17 @@ void tomarYMostrarPedidoVerduleria() {
     std::cout << "6. Kiwi" << std::endl;
 
     while (true) {
+        if (pedido.numFrutasPedidas >= MAX_FRUTAS) {
+            std::cout << "Se ha alcanzado el limite maximo de frutas (" << MAX_FRUTAS << "). No se pueden agregar mas." << std::endl;
+            break;
+        }
         std::cout << "Opcion de fruta: ";
         std::cin >> opcionFruta;
         if (opcionFruta == 0) {
             break;
         }
         if (opcionFruta >= 1 && opcionFruta <= 6) {
-            pedido.frutasPedidas.push_back(static_cast<Fruta>(opcionFruta));
+            pedido.frutasPedidas[pedido.numFrutasPedidas++] = static_cast<Fruta>(opcionFruta);
         } else {
             std::cout << "Opcion invalida. Intente de nuevo." << std::endl;
         }
@@ -281,11 +284,11 @@ void tomarYMostrarPedidoVerduleria() {
     std::cout << "Fecha de Solicitud: " << pedido.fechaSolicitud << std::endl;
     std::cout << "Fecha de Entrega: " << pedido.fechaEntrega << std::endl;
     std::cout << "Frutas Pedidas:" << std::endl;
-    if (pedido.frutasPedidas.empty()) {
+    if (pedido.numFrutasPedidas == 0) {
         std::cout << "  Ninguna fruta seleccionada." << std::endl;
     } else {
-        for (Fruta f : pedido.frutasPedidas) {
-            std::cout << "  - " << obtenerNombreFruta(f) << std::endl;
+        for (int i = 0; i < pedido.numFrutasPedidas; ++i) {
+            std::cout << "  - " << obtenerNombreFruta(pedido.frutasPedidas[i]) << std::endl;
         }
     }
 }
@@ -293,12 +296,12 @@ void tomarYMostrarPedidoVerduleria() {
 // Helper para obtener el nombre de la fruta (Consigna 1.c)
 std::string obtenerNombreFruta(Fruta fruta) {
     switch (fruta) {
-        case Fruta::MANZANA: return "Manzana";
-        case Fruta::BANANA: return "Banana";
-        case Fruta::NARANJA: return "Naranja";
-        case Fruta::PERA: return "Pera";
-        case Fruta::UVA: return "Uva";
-        case Fruta::KIWI: return "Kiwi";
+        case MANZANA: return "Manzana";
+        case BANANA: return "Banana";
+        case NARANJA: return "Naranja";
+        case PERA: return "Pera";
+        case UVA: return "Uva";
+        case KIWI: return "Kiwi";
         default: return "Desconocida";
     }
 }

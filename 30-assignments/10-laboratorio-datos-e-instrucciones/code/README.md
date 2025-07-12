@@ -11,7 +11,6 @@ Programa en C++ para gestión de sistemas comerciales mediante tipos enumerados 
 - **Pedidos a mayorista** para verdulería (proveedores, frutas, fechas)  
 - **Tipos personalizados** con enumerados para opciones específicas  
 - **Validación de entrada** y visualización formateada de datos  
-- **Manejo de vectores** para listas dinámicas de productos  
 
 ## Estructura de directorios
 
