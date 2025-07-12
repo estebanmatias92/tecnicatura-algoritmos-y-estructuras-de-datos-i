@@ -1,17 +1,18 @@
-# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
+# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Especial Funciones
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ que implementa funciones matemáticas, operaciones aritméticas, verificaciones lógicas y resolución de ecuaciones a través de un menú interactivo.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- Conversión de temperaturas (Celsius ↔ Fahrenheit)
+- Operaciones aritméticas básicas (suma, resta, multiplicación, división)
+- Verificación de números primos y rangos numéricos
+- Cálculo de perímetros (cuadrado, rectángulo, triángulo)
+- Resolución de ecuaciones lineales
+- Cálculo de notas finales con ponderaciones
+- Captura y visualización de datos personales (edad, sexo, altura)
 
 ## Estructura de directorios
 

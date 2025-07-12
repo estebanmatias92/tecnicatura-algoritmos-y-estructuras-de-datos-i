@@ -1,17 +1,18 @@
-# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
+# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 05 - Tipos de Datos
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ que implementa funciones para cálculos comerciales, académicos y numéricos mediante un menú interactivo.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- Cálculo de descuentos por cantidad de productos  
+- Determinación de salarios con horas extras  
+- Evaluación de promedio y estado académico  
+- Procesamiento de secuencias numéricas (promedio, sumas condicionales)  
+- Validación de entrada ordenada (números crecientes)  
+- Sumatorias específicas (pares/impares, rango 1-N)  
+- Manejo de vectores para almacenamiento dinámico  
 
 ## Estructura de directorios
 

@@ -1,77 +1,304 @@
-#include <iostream> // Incluye la librería iostream para entrada/salida de datos
-#include <cmath>    // Incluye la librería cmath para funciones matemáticas como pow (potencia)
+#include <iostream> // Para entrada y salida (cin, cout)
+#include <string>   // Para usar std::string
+#include <vector>   // Para usar std::vector
+#include <iomanip>  // Para formatear la salida (setw, left)
 
-// La función main es el punto de entrada de todo programa C++
+// --- Tipos Enumerados y Estructuras (Consigna: Se recomienda utilizar Tipos definidos x el usuario y Enumeradores) ---
+
+// Enumerador para los tipos de platos en el restaurante (Consigna 1.a)
+enum class TipoPlato {
+    PRIMER_PLATO = 1,
+    PLATO_PRINCIPAL,
+    POSTRE
+};
+
+// Estructura para representar una comanda de restaurante (Consigna 1.a)
+struct ComandaRestaurante {
+    int numeroMesa;
+    std::string nombreMozo;
+    std::string fecha;
+    std::string hora;
+    TipoPlato primerPlato;
+    TipoPlato platoPrincipal;
+    TipoPlato poste;
+};
+
+// Enumerador para las clases de vuelo (Consigna 1.b)
+enum class ClaseVuelo {
+    PRIMERA = 1,
+    BUSINESS,
+    ECONOMICA
+};
+
+// Enumerador para los códigos de aeropuerto (Consigna 1.b)
+enum class CodigoAeropuerto {
+    BAHIA_BLANCA = 1, // BHI
+    AEROPARQUE,       // AER
+    EL_PALOMAR,       // EPA
+    EZEIZA,           // EZE
+    BARILOCHE,        // BRC
+    CATAMARCA,        // CTC
+    COMODORO_RIVADAVIA // CRD
+};
+
+// Estructura para representar una reserva de avión (Consigna 1.b)
+struct ReservaAvion {
+    std::string dni;
+    std::string apellido;
+    std::string nombre;
+    ClaseVuelo clase;
+    CodigoAeropuerto origen;
+    CodigoAeropuerto destino;
+};
+
+// Enumerador para las frutas en la verdulería (Consigna 1.c)
+enum class Fruta {
+    MANZANA = 1,
+    BANANA,
+    NARANJA,
+    PERA,
+    UVA,
+    KIWI
+};
+
+// Estructura para representar un pedido de verdulería al mayorista (Consigna 1.c)
+struct PedidoVerduleria {
+    int codigoProveedor;
+    std::string razonSocial;
+    std::string fechaSolicitud;
+    std::string fechaEntrega;
+    std::vector<Fruta> frutasPedidas; // Lista de frutas en el pedido
+};
+
+
+// --- Prototipos de Funciones ---
+
+// Consigna 1.a: Aplicación de restaurante
+void tomarYMostrarComanda();
+std::string obtenerNombrePlato(TipoPlato plato);
+
+// Consigna 1.b: Programa de reservas de avión
+void tomarYMostrarReservaAvion();
+std::string obtenerNombreClaseVuelo(ClaseVuelo clase);
+std::string obtenerNombreAeropuerto(CodigoAeropuerto codigo);
+
+// Consigna 1.c: Pedido de verdulería al mayorista
+void tomarYMostrarPedidoVerduleria();
+std::string obtenerNombreFruta(Fruta fruta);
+
+
 int main() {
-    // --- Ejercicio 1: Operaciones básicas y mostrar resultados ---
+    int opcion;
 
-    std::cout << "--- Ejercicio 1: Operaciones basicas ---" << std::endl;
+    do {
+        std::cout << "\n--- MENU PRINCIPAL - TP Unidad 3.1 ---" << std::endl;
+        std::cout << "1. Aplicacion de Restaurante (Comanda)" << std::endl;
+        std::cout << "2. Programa de Reservas de Avion" << std::endl;
+        std::cout << "3. Pedido de Verduleria al Mayorista" << std::endl;
+        std::cout << "0. Salir" << std::endl;
+        std::cout << "Ingrese su opcion: ";
+        std::cin >> opcion;
 
-    // a. La suma de 45 + 34
-    std::cout << "a. Suma de 45 + 34 = " << (45 + 34) << std::endl;
+        switch (opcion) {
+            case 1: // Consigna 1.a: Aplicación de restaurante
+                tomarYMostrarComanda();
+                break;
+            case 2: // Consigna 1.b: Programa de reservas de avión
+                tomarYMostrarReservaAvion();
+                break;
+            case 3: // Consigna 1.c: Pedido de verdulería al mayorista
+                tomarYMostrarPedidoVerduleria();
+                break;
+            case 0:
+                std::cout << "Saliendo del programa." << std::endl;
+                break;
+            default:
+                std::cout << "Opcion invalida. Por favor, intente de nuevo." << std::endl;
+                break;
+        }
+    } while (opcion != 0);
 
-    // b. La resta de 45 - 40
-    std::cout << "b. Resta de 45 - 40 = " << (45 - 40) << std::endl;
+    return 0;
+}
 
-    // c. La division de 46 y 3
-    // Nota: La division de enteros truncara el resultado. Para un resultado decimal,
-    // al menos uno de los operandos debe ser de tipo flotante (double o float).
-    std::cout << "c. Division de 46 y 3 (entera) = " << (46 / 3) << std::endl;
-    std::cout << "c. Division de 46 y 3 (decimal) = " << (static_cast<double>(46) / 3) << std::endl;
 
-    // d. Un programa que multiplique 65 * 3
-    std::cout << "d. Multiplicacion de 65 * 3 = " << (65 * 3) << std::endl;
+// --- Implementaciones de Funciones ---
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+// Consigna 1.a: Aplicación de restaurante
+void tomarYMostrarComanda() {
+    ComandaRestaurante comanda;
+    int opcionPlato;
 
-    // --- Ejercicio 2: Uso de variables y operadores ---
+    std::cout << "\n--- Tomar Comanda de Restaurante ---" << std::endl;
+    std::cout << "Numero de Mesa: ";
+    std::cin >> comanda.numeroMesa;
+    std::cin.ignore(); // Limpiar el buffer de entrada
+    std::cout << "Nombre del Mozo: ";
+    std::getline(std::cin, comanda.nombreMozo);
+    std::cout << "Fecha (DD/MM/AAAA): ";
+    std::getline(std::cin, comanda.fecha);
+    std::cout << "Hora (HH:MM): ";
+    std::getline(std::cin, comanda.hora);
 
-    std::cout << "--- Ejercicio 2: Uso de variables y operadores ---" << std::endl;
+    std::cout << "Seleccione Primer Plato (1:PRIMER_PLATO, 2:PLATO_PRINCIPAL, 3:POSTRE): ";
+    std::cin >> opcionPlato;
+    comanda.primerPlato = static_cast<TipoPlato>(opcionPlato);
 
-    // a. Calcula el volumen de una habitacion
-    // Declaracion e inicializacion de variables para las dimensiones de la habitacion
-    double largo_habitacion = 5.0;  // metros
-    double ancho_habitacion = 4.0;  // metros
-    double alto_habitacion = 2.5;   // metros
+    std::cout << "Seleccione Plato Principal (1:PRIMER_PLATO, 2:PLATO_PRINCIPAL, 3:POSTRE): ";
+    std::cin >> opcionPlato;
+    comanda.platoPrincipal = static_cast<TipoPlato>(opcionPlato);
 
-    // Calculo del volumen
-    double volumen_habitacion = largo_habitacion * ancho_habitacion * alto_habitacion;
+    std::cout << "Seleccione Postre (1:PRIMER_PLATO, 2:PLATO_PRINCIPAL, 3:POSTRE): ";
+    std::cin >> opcionPlato;
+    comanda.poste = static_cast<TipoPlato>(opcionPlato);
 
-    // Mostrar el resultado
-    std::cout << "a. El volumen de la habitacion es: " << volumen_habitacion << " metros cubicos." << std::endl;
+    std::cout << "\n--- Informacion de la Comanda ---" << std::endl;
+    std::cout << "Numero de Mesa: " << comanda.numeroMesa << std::endl;
+    std::cout << "Nombre del Mozo: " << comanda.nombreMozo << std::endl;
+    std::cout << "Fecha: " << comanda.fecha << std::endl;
+    std::cout << "Hora: " << comanda.hora << std::endl;
+    std::cout << "Primer Plato: " << obtenerNombrePlato(comanda.primerPlato) << std::endl;
+    std::cout << "Plato Principal: " << obtenerNombrePlato(comanda.platoPrincipal) << std::endl;
+    std::cout << "Postre: " << obtenerNombrePlato(comanda.poste) << std::endl;
+}
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+// Helper para obtener el nombre del plato (Consigna 1.a)
+std::string obtenerNombrePlato(TipoPlato plato) {
+    switch (plato) {
+        case TipoPlato::PRIMER_PLATO: return "Primer Plato";
+        case TipoPlato::PLATO_PRINCIPAL: return "Plato Principal";
+        case TipoPlato::POSTRE: return "Postre";
+        default: return "Desconocido";
+    }
+}
 
-    // b. Calcula el volumen de un cono
-    // Declaracion e inicializacion de variables para el cono
-    double radio_base_cono = 14.5;  // unidades
-    double altura_cono = 26.79;     // unidades
-    const double PI = 3.14;         // Definicion de la constante PI
+// Consigna 1.b: Programa de reservas de avión
+void tomarYMostrarReservaAvion() {
+    ReservaAvion reserva;
+    int opcionClase, opcionOrigen, opcionDestino;
 
-    // Formula para el volumen del cono: (Pi * (radio)^2 * altura) / 3
-    // Usamos pow(base, exponente) de la libreria cmath para calcular el radio al cuadrado
-    double volumen_cono = (PI * pow(radio_base_cono, 2) * altura_cono) / 3;
+    std::cout << "\n--- Tomar Reserva de Avion ---" << std::endl;
+    std::cin.ignore(); // Limpiar el buffer de entrada
+    std::cout << "DNI: ";
+    std::getline(std::cin, reserva.dni);
+    std::cout << "Apellido: ";
+    std::getline(std::cin, reserva.apellido);
+    std::cout << "Nombre: ";
+    std::getline(std::cin, reserva.nombre);
 
-    // Mostrar el resultado
-    std::cout << "b. El volumen del cono es: " << volumen_cono << " unidades cubicas." << std::endl;
+    std::cout << "Seleccione Clase (1:PRIMERA, 2:BUSINESS, 3:ECONOMICA): ";
+    std::cin >> opcionClase;
+    reserva.clase = static_cast<ClaseVuelo>(opcionClase);
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+    std::cout << "Seleccione Aeropuerto de Origen:" << std::endl;
+    std::cout << "1. Bahia Blanca-BHI" << std::endl;
+    std::cout << "2. Buenos Aires Aeroparque-AER" << std::endl;
+    std::cout << "3. Buenos Aires El Palomar-EPA" << std::endl;
+    std::cout << "4. Buenos Aires Ezeiza-EZE" << std::endl;
+    std::cout << "5. San Carlos de Bariloche-BRC" << std::endl;
+    std::cout << "6. San Fernando del Valle de Catamarca-CTC" << std::endl;
+    std::cout << "7. Comodoro Rivadavia-CRD" << std::endl;
+    std::cout << "Opcion: ";
+    std::cin >> opcionOrigen;
+    reserva.origen = static_cast<CodigoAeropuerto>(opcionOrigen);
 
-    // c. Modificar el programa anterior para que usen variables Dobles
-    // En este caso, ya hemos usado variables de tipo 'double' para los calculos del cono
-    // en el apartado 'b'. Esto asegura una mayor precision en los resultados decimales.
+    std::cout << "Seleccione Aeropuerto de Destino: ";
+    std::cin >> opcionDestino;
+    reserva.destino = static_cast<CodigoAeropuerto>(opcionDestino);
 
-    std::cout << "c. Modificacion para usar variables Dobles:" << std::endl;
-    std::cout << "   Para el calculo del volumen del cono en el apartado 'b', ya se utilizaron" << std::endl;
-    std::cout << "   variables de tipo 'double' (radio_base_cono, altura_cono, PI, volumen_cono)." << std::endl;
-    std::cout << "   La principal diferencia al usar 'double' en lugar de 'float' (o enteros para divisiones)" << std::endl;
-    std::cout << "   es la PRECISION. 'double' almacena numeros de punto flotante con doble precision," << std::endl;
-    std::cout << "   lo que significa que puede representar un rango mas amplio de valores y con mas" << std::endl;
-    std::cout << "   decimales significativos. Esto es crucial para calculos cientificos o de ingenieria" << std::endl;
-    std::cout << "   donde la exactitud es fundamental." << std::endl;
-    std::cout << "   Por ejemplo, si hubieramos usado 'float' para PI (3.14f) o para las dimensiones," << std::endl;
-    std::cout << "   el resultado del volumen podria tener una ligera diferencia debido a la menor precision." << std::endl;
-    std::cout << "   Con 'double', el resultado es mas cercano al valor matematicamente exacto." << std::endl;
+    std::cout << "\n--- Informacion de la Reserva ---" << std::endl;
+    std::cout << "DNI: " << reserva.dni << std::endl;
+    std::cout << "Apellido y Nombre: " << reserva.apellido << ", " << reserva.nombre << std::endl;
+    std::cout << "Clase de Vuelo: " << obtenerNombreClaseVuelo(reserva.clase) << std::endl;
+    std::cout << "Origen: " << obtenerNombreAeropuerto(reserva.origen) << std::endl;
+    std::cout << "Destino: " << obtenerNombreAeropuerto(reserva.destino) << std::endl;
+}
 
-    return 0; // Indica que el programa finalizo correctamente
+// Helper para obtener el nombre de la clase de vuelo (Consigna 1.b)
+std::string obtenerNombreClaseVuelo(ClaseVuelo clase) {
+    switch (clase) {
+        case ClaseVuelo::PRIMERA: return "Primera";
+        case ClaseVuelo::BUSINESS: return "Business";
+        case ClaseVuelo::ECONOMICA: return "Economica";
+        default: return "Desconocida";
+    }
+}
+
+// Helper para obtener el nombre del aeropuerto (Consigna 1.b)
+std::string obtenerNombreAeropuerto(CodigoAeropuerto codigo) {
+    switch (codigo) {
+        case CodigoAeropuerto::BAHIA_BLANCA: return "Bahia Blanca-BHI";
+        case CodigoAeropuerto::AEROPARQUE: return "Buenos Aires Aeroparque-AER";
+        case CodigoAeropuerto::EL_PALOMAR: return "Buenos Aires El Palomar-EPA";
+        case CodigoAeropuerto::EZEIZA: return "Buenos Aires Ezeiza-EZE";
+        case CodigoAeropuerto::BARILOCHE: return "San Carlos de Bariloche-BRC";
+        case CodigoAeropuerto::CATAMARCA: return "San Fernando del Valle de Catamarca-CTC";
+        case CodigoAeropuerto::COMODORO_RIVADAVIA: return "Comodoro Rivadavia-CRD";
+        default: return "Desconocido";
+    }
+}
+
+// Consigna 1.c: Pedido de verdulería al mayorista
+void tomarYMostrarPedidoVerduleria() {
+    PedidoVerduleria pedido;
+    int opcionFruta;
+
+    std::cout << "\n--- Armar Pedido para Mayorista (Verduleria) ---" << std::endl;
+    std::cout << "Codigo de Proveedor: ";
+    std::cin >> pedido.codigoProveedor;
+    std::cin.ignore(); // Limpiar el buffer de entrada
+    std::cout << "Razon Social: ";
+    std::getline(std::cin, pedido.razonSocial);
+    std::cout << "Fecha de Solicitud (DD/MM/AAAA): ";
+    std::getline(std::cin, pedido.fechaSolicitud);
+    std::cout << "Fecha de Entrega (DD/MM/AAAA): ";
+    std::getline(std::cin, pedido.fechaEntrega);
+
+    std::cout << "Seleccione las frutas a pedir (ingrese 0 para terminar):" << std::endl;
+    std::cout << "1. Manzana" << std::endl;
+    std::cout << "2. Banana" << std::endl;
+    std::cout << "3. Naranja" << std::endl;
+    std::cout << "4. Pera" << std::endl;
+    std::cout << "5. Uva" << std::endl;
+    std::cout << "6. Kiwi" << std::endl;
+
+    while (true) {
+        std::cout << "Opcion de fruta: ";
+        std::cin >> opcionFruta;
+        if (opcionFruta == 0) {
+            break;
+        }
+        if (opcionFruta >= 1 && opcionFruta <= 6) {
+            pedido.frutasPedidas.push_back(static_cast<Fruta>(opcionFruta));
+        } else {
+            std::cout << "Opcion invalida. Intente de nuevo." << std::endl;
+        }
+    }
+
+    std::cout << "\n--- Informacion del Pedido al Mayorista ---" << std::endl;
+    std::cout << "Codigo de Proveedor: " << pedido.codigoProveedor << std::endl;
+    std::cout << "Razon Social: " << pedido.razonSocial << std::endl;
+    std::cout << "Fecha de Solicitud: " << pedido.fechaSolicitud << std::endl;
+    std::cout << "Fecha de Entrega: " << pedido.fechaEntrega << std::endl;
+    std::cout << "Frutas Pedidas:" << std::endl;
+    if (pedido.frutasPedidas.empty()) {
+        std::cout << "  Ninguna fruta seleccionada." << std::endl;
+    } else {
+        for (Fruta f : pedido.frutasPedidas) {
+            std::cout << "  - " << obtenerNombreFruta(f) << std::endl;
+        }
+    }
+}
+
+// Helper para obtener el nombre de la fruta (Consigna 1.c)
+std::string obtenerNombreFruta(Fruta fruta) {
+    switch (fruta) {
+        case Fruta::MANZANA: return "Manzana";
+        case Fruta::BANANA: return "Banana";
+        case Fruta::NARANJA: return "Naranja";
+        case Fruta::PERA: return "Pera";
+        case Fruta::UVA: return "Uva";
+        case Fruta::KIWI: return "Kiwi";
+        default: return "Desconocida";
+    }
 }

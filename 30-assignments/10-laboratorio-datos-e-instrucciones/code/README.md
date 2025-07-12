@@ -1,17 +1,17 @@
-# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
+# Algoritmos y Estructuras de Datos I - Unidad 03 - Laboratorio 06 - Datos e Instrucciones
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ para gestión de sistemas comerciales mediante tipos enumerados y estructuras, con menú interactivo para diferentes módulos.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- **Sistema de comandas** para restaurante (mesas, mozos, tipos de platos)  
+- **Reservas de vuelos** con clases, aeropuertos y datos de pasajeros  
+- **Pedidos a mayorista** para verdulería (proveedores, frutas, fechas)  
+- **Tipos personalizados** con enumerados para opciones específicas  
+- **Validación de entrada** y visualización formateada de datos  
+- **Manejo de vectores** para listas dinámicas de productos  
 
 ## Estructura de directorios
 
