@@ -1,77 +1,206 @@
-#include <iostream> // Incluye la librería iostream para entrada/salida de datos
-#include <cmath>    // Incluye la librería cmath para funciones matemáticas como pow (potencia)
+#include <iostream> // Para entrada y salida (cin, cout)
+#include <string>   // Para usar std::string
+#include <iomanip>  // Para formatear la salida (setprecision, fixed)
 
-// La función main es el punto de entrada de todo programa C++
+// --- Definición de tipos con typedef ---
+typedef double Medida;
+typedef double Salario;
+typedef int OpcionMenu;
+
+// --- Prototipos de Funciones ---
+
+// Consigna 1.a: Conversiones de unidades
+Medida centimetrosAPulgadas(Medida cm);
+Medida celsiusAFahrenheit(Medida celsius);
+Medida librasAKilogramos(Medida libras);
+
+// Consigna 1.b: Incremento de salarios
+Salario calcularSalarioConIncremento(Salario salarioActual);
+
+// Consigna 1.c: Aplicación de toma de pedidos
+void tomarPedidoApp();
+std::string obtenerNombreProducto(OpcionMenu producto);
+std::string obtenerNombreTipoEnvio(OpcionMenu tipoEnvio);
+
+// Consigna 1.d: Diferencia entre dos números y listado condicional
+void diferenciaNumerosYListado();
+
+
 int main() {
-    // --- Ejercicio 1: Operaciones básicas y mostrar resultados ---
+    int opcion;
 
-    std::cout << "--- Ejercicio 1: Operaciones basicas ---" << std::endl;
+    do {
+        std::cout << "\n--- MENU PRINCIPAL - TP Unidad 3.2 ---" << std::endl;
+        std::cout << "1. Conversiones de Unidades (cm a pulgadas, C a F, lb a kg)" << std::endl;
+        std::cout << "2. Calculo de Salario con Incremento" << std::endl;
+        std::cout << "3. Aplicacion de Toma de Pedidos" << std::endl;
+        std::cout << "4. Diferencia entre Numeros y Listado Condicional" << std::endl;
+        std::cout << "0. Salir" << std::endl;
+        std::cout << "Ingrese su opcion: ";
+        std::cin >> opcion;
 
-    // a. La suma de 45 + 34
-    std::cout << "a. Suma de 45 + 34 = " << (45 + 34) << std::endl;
+        switch (opcion) {
+            case 1: { // Consigna 1.a: Conversiones de unidades
+                int subOpcion;
+                Medida valor;
+                std::cout << "\n--- Conversiones de Unidades ---" << std::endl;
+                std::cout << "1. Centimetros a Pulgadas" << std::endl;
+                std::cout << "2. Celsius a Fahrenheit" << std::endl;
+                std::cout << "3. Libras a Kilogramos" << std::endl;
+                std::cout << "Ingrese su opcion: ";
+                std::cin >> subOpcion;
 
-    // b. La resta de 45 - 40
-    std::cout << "b. Resta de 45 - 40 = " << (45 - 40) << std::endl;
+                std::cout << "Ingrese el valor a convertir: ";
+                std::cin >> valor;
 
-    // c. La division de 46 y 3
-    // Nota: La division de enteros truncara el resultado. Para un resultado decimal,
-    // al menos uno de los operandos debe ser de tipo flotante (double o float).
-    std::cout << "c. Division de 46 y 3 (entera) = " << (46 / 3) << std::endl;
-    std::cout << "c. Division de 46 y 3 (decimal) = " << (static_cast<double>(46) / 3) << std::endl;
+                switch (subOpcion) {
+                    case 1:
+                        std::cout << valor << " cm son " << centimetrosAPulgadas(valor) << " pulgadas." << std::endl;
+                        break;
+                    case 2:
+                        std::cout << valor << " C son " << celsiusAFahrenheit(valor) << " F." << std::endl;
+                        break;
+                    case 3:
+                        std::cout << valor << " lb son " << librasAKilogramos(valor) << " kg." << std::endl;
+                        break;
+                    default:
+                        std::cout << "Opcion invalida." << std::endl;
+                        break;
+                }
+                break;
+            }
+            case 2: { // Consigna 1.b: Incremento de salarios
+                Salario salarioActual;
+                std::cout << "\n--- Calculo de Salario con Incremento ---" << std::endl;
+                std::cout << "Ingrese el salario actual del trabajador: $";
+                std::cin >> salarioActual;
+                std::cout << "El nuevo salario es: $" << std::fixed << std::setprecision(2) << calcularSalarioConIncremento(salarioActual) << std::endl;
+                break;
+            }
+            case 3: { // Consigna 1.c: Aplicación de toma de pedidos
+                tomarPedidoApp();
+                break;
+            }
+            case 4: { // Consigna 1.d: Diferencia entre dos números y listado condicional
+                diferenciaNumerosYListado();
+                break;
+            }
+            case 0:
+                std::cout << "Saliendo del programa." << std::endl;
+                break;
+            default:
+                std::cout << "Opcion invalida. Por favor, intente de nuevo." << std::endl;
+                break;
+        }
+    } while (opcion != 0);
 
-    // d. Un programa que multiplique 65 * 3
-    std::cout << "d. Multiplicacion de 65 * 3 = " << (65 * 3) << std::endl;
+    return 0;
+}
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
 
-    // --- Ejercicio 2: Uso de variables y operadores ---
+// --- Implementaciones de Funciones ---
 
-    std::cout << "--- Ejercicio 2: Uso de variables y operadores ---" << std::endl;
+// Consigna 1.a: Conversiones de unidades
+Medida centimetrosAPulgadas(Medida cm) {
+    return cm * 0.393701;
+}
 
-    // a. Calcula el volumen de una habitacion
-    // Declaracion e inicializacion de variables para las dimensiones de la habitacion
-    double largo_habitacion = 5.0;  // metros
-    double ancho_habitacion = 4.0;  // metros
-    double alto_habitacion = 2.5;   // metros
+Medida celsiusAFahrenheit(Medida celsius) {
+    return (celsius * 9.0 / 5.0) + 32.0;
+}
 
-    // Calculo del volumen
-    double volumen_habitacion = largo_habitacion * ancho_habitacion * alto_habitacion;
+Medida librasAKilogramos(Medida libras) {
+    return libras * 0.453592;
+}
 
-    // Mostrar el resultado
-    std::cout << "a. El volumen de la habitacion es: " << volumen_habitacion << " metros cubicos." << std::endl;
+// Consigna 1.b: Incremento de salarios
+Salario calcularSalarioConIncremento(Salario salarioActual) {
+    double incrementoPorcentaje;
+    if (salarioActual <= 9000) {
+        incrementoPorcentaje = 0.20; // 20%
+    } else if (salarioActual <= 15000) {
+        incrementoPorcentaje = 0.10; // 10%
+    } else if (salarioActual <= 20000) {
+        incrementoPorcentaje = 0.05; // 5%
+    } else {
+        incrementoPorcentaje = 0.03; // 3%
+    }
+    return salarioActual * (1 + incrementoPorcentaje);
+}
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+// Consigna 1.c: Aplicación de toma de pedidos
+void tomarPedidoApp() {
+    OpcionMenu productoElegido;
+    OpcionMenu tipoEnvioElegido;
 
-    // b. Calcula el volumen de un cono
-    // Declaracion e inicializacion de variables para el cono
-    double radio_base_cono = 14.5;  // unidades
-    double altura_cono = 26.79;     // unidades
-    const double PI = 3.14;         // Definicion de la constante PI
+    std::cout << "\n--- Toma de Pedidos ---" << std::endl;
+    std::cout << "Menu de Productos:" << std::endl;
+    std::cout << "1) Simple" << std::endl;
+    std::cout << "2) Medio" << std::endl;
+    std::cout << "3) Calidad" << std::endl;
+    std::cout << "4) Premium" << std::endl;
+    std::cout << "Seleccione un producto: ";
+    std::cin >> productoElegido;
 
-    // Formula para el volumen del cono: (Pi * (radio)^2 * altura) / 3
-    // Usamos pow(base, exponente) de la libreria cmath para calcular el radio al cuadrado
-    double volumen_cono = (PI * pow(radio_base_cono, 2) * altura_cono) / 3;
+    std::cout << "\nMenu de Tipo de Envio:" << std::endl;
+    std::cout << "1) Normal" << std::endl;
+    std::cout << "2) Express" << std::endl;
+    std::cout << "3) Fast Delivery" << std::endl;
+    std::cout << "Seleccione un tipo de envio: ";
+    std::cin >> tipoEnvioElegido;
 
-    // Mostrar el resultado
-    std::cout << "b. El volumen del cono es: " << volumen_cono << " unidades cubicas." << std::endl;
+    std::cout << "\n--- Resumen del Pedido ---" << std::endl;
+    std::cout << "Producto seleccionado: " << obtenerNombreProducto(productoElegido) << std::endl;
+    std::cout << "Tipo de envio elegido: " << obtenerNombreTipoEnvio(tipoEnvioElegido) << std::endl;
+}
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+// Helper para obtener el nombre del producto (Consigna 1.c)
+std::string obtenerNombreProducto(OpcionMenu producto) {
+    switch (producto) {
+        case 1: return "Simple";
+        case 2: return "Medio";
+        case 3: return "Calidad";
+        case 4: return "Premium";
+        default: return "Desconocido";
+    }
+}
 
-    // c. Modificar el programa anterior para que usen variables Dobles
-    // En este caso, ya hemos usado variables de tipo 'double' para los calculos del cono
-    // en el apartado 'b'. Esto asegura una mayor precision en los resultados decimales.
+// Helper para obtener el nombre del tipo de envío (Consigna 1.c)
+std::string obtenerNombreTipoEnvio(OpcionMenu tipoEnvio) {
+    switch (tipoEnvio) {
+        case 1: return "Normal";
+        case 2: return "Express";
+        case 3: return "Fast Delivery";
+        default: return "Desconocido";
+    }
+}
 
-    std::cout << "c. Modificacion para usar variables Dobles:" << std::endl;
-    std::cout << "   Para el calculo del volumen del cono en el apartado 'b', ya se utilizaron" << std::endl;
-    std::cout << "   variables de tipo 'double' (radio_base_cono, altura_cono, PI, volumen_cono)." << std::endl;
-    std::cout << "   La principal diferencia al usar 'double' en lugar de 'float' (o enteros para divisiones)" << std::endl;
-    std::cout << "   es la PRECISION. 'double' almacena numeros de punto flotante con doble precision," << std::endl;
-    std::cout << "   lo que significa que puede representar un rango mas amplio de valores y con mas" << std::endl;
-    std::cout << "   decimales significativos. Esto es crucial para calculos cientificos o de ingenieria" << std::endl;
-    std::cout << "   donde la exactitud es fundamental." << std::endl;
-    std::cout << "   Por ejemplo, si hubieramos usado 'float' para PI (3.14f) o para las dimensiones," << std::endl;
-    std::cout << "   el resultado del volumen podria tener una ligera diferencia debido a la menor precision." << std::endl;
-    std::cout << "   Con 'double', el resultado es mas cercano al valor matematicamente exacto." << std::endl;
+// Consigna 1.d: Diferencia entre dos números y listado condicional
+void diferenciaNumerosYListado() {
+    int x, y;
+    std::cout << "\n--- Diferencia de Numeros y Listado Condicional ---" << std::endl;
+    std::cout << "Ingrese el primer numero (x): ";
+    std::cin >> x;
+    std::cout << "Ingrese el segundo numero (y): ";
+    std::cin >> y;
 
-    return 0; // Indica que el programa finalizo correctamente
+    int diferencia = x - y;
+    std::cout << "La diferencia (x - y) es: " << diferencia << std::endl;
+
+    if (diferencia <= 10) {
+        std::cout << "La diferencia es menor o igual a 10. Numeros comprendidos entre y y x:" << std::endl;
+        // Asegurarse de que el bucle vaya del menor al mayor
+        if (y <= x) {
+            for (int i = y; i <= x; ++i) {
+                std::cout << i << " ";
+            }
+        } else { // Si y es mayor que x, iterar de x a y
+            for (int i = x; i <= y; ++i) {
+                std::cout << i << " ";
+            }
+        }
+        std::cout << std::endl;
+    } else {
+        std::cout << "La diferencia es mayor a 10. No se listaran los numeros." << std::endl;
+    }
 }
