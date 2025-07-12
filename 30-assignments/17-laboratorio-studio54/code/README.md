@@ -1,17 +1,17 @@
-# Algoritmos y Estructuras de Datos I - Unidad Cuatrimestre - Actividad Integrador - Studio 54
+# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
 
 ## Descripción
 
-Este programa es una aplicación de gestión de invitados desarrollada para Studio 54 con motivo de su fiesta de aniversario en la ciudad de Nueva York. La aplicación permite administrar una lista de invitados, incluyendo sus datos personales, y controlar la confirmación o cancelación de su asistencia a la fiesta. La interfaz se presenta en la consola y los datos de los invitados se almacenan de forma persistente en un archivo.
+Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
 
 ## Características
 
-* **Gestión de Invitados**: Permite agregar, borrar y modificar los datos personales de los invitados.
-* **Control de Asistencia**: Registra si un invitado ha confirmado o cancelado su asistencia a la fiesta.
-* **Listado de Asistentes**: Muestra un listado de todos los invitados en la pantalla.
-* **Actualización de Estado por Ticket**: Permite confirmar o cancelar la asistencia de un invitado buscando por su número de ticket.
-* **Persistencia de Datos**: Los datos de los invitados se guardan en un archivo (`guests.txt`).
-* **Funciones de Utilidad**: Incluye funciones para limpiar la consola y pausar la ejecución para una mejor interacción con el usuario.
+- Cálculo de edad a partir de fecha de nacimiento
+- Operaciones con múltiples valores (promedio, producto)
+- Cálculo de volumen de cono
+- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
+- Precisión decimal con variables double
+- Interacción básica con usuario
 
 ## Estructura de directorios
 
@@ -58,7 +58,7 @@ Ejecutar el siguiente comando desde directorio raiz:
 make up-prod
 
 # With compose
-docker compose run --build --rm app
+docker compose up --build
 ```
 
 ### Para desarrollo
@@ -70,13 +70,13 @@ Ejecutar:
 make run-dev
 
 # With compose from ./core-service
-docker compose run --rm dev
+docker compose --profile interactive run --rm dev_interactive
 ```
 
 ## Requisitos
 
-* Compilador C++ (g++ recomendado)
+- Compilador C++ (g++ recomendado)
 
-* Docker (opcional, solo para entornos containerizados)
+- Docker (opcional, solo para entornos containerizados)
 
-* Sistema operativo con terminal
+- Sistema operativo con terminal
