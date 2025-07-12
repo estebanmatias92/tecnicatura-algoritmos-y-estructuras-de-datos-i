@@ -1,4 +1,0 @@
-C100 54465 gonzales@gmail.com Hernan Gonzales
-C101 1552258798 lapenta@gmail.com Lapenta
-C102 54654654 cirulli@gmail.com Cirulli Cristian
-X
