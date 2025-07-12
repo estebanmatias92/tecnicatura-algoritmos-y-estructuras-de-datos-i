@@ -1,17 +1,19 @@
-# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
+# Algoritmos y Estructuras de Datos I - Unidad 04 - Laboratorio 08 - Archivos
 
 ## Descripción
 
-Programa en C++ que resuelve ejercicios prácticos de la unidad 2, incluyendo cálculos matemáticos, conversiones y manejo de variables.
+Programa en C++ para gestión de archivos de texto, que permite almacenar, visualizar y analizar contenido textual con diversas operaciones.
 
 ## Características
 
-- Cálculo de edad a partir de fecha de nacimiento
-- Operaciones con múltiples valores (promedio, producto)
-- Cálculo de volumen de cono
-- Conversiones: Fahrenheit a Celsius y segundos a horas/minutos
-- Precisión decimal con variables double
-- Interacción básica con usuario
+- **Almacenamiento de frases**: Guarda texto en archivos con modo append
+- **Visualización de contenido**: Muestra el contenido completo del archivo
+- **Análisis textual**:
+  - Conteo de palabras por línea y total
+  - Cálculo de promedio de palabras por línea
+  - Detección de la palabra más larga
+- **Manejo seguro de archivos**: Verificación de apertura correcta
+- **Tipos personalizados**: typedef para claridad en nombres de archivos y frases
 
 ## Estructura de directorios
 

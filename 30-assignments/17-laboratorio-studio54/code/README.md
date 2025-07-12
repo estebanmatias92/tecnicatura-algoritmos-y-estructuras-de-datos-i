@@ -1,4 +1,4 @@
-# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
+# Algoritmos y Estructuras de Datos I - Unidad Cuatrimestre 01 - Examen Parcial 01 - Simulación 01
 
 ## Descripción
 

@@ -1,4 +1,4 @@
-# Algoritmos y Estructuras de Datos I - Unidad 02 - Laboratorio 04 - Tipos e Instrucciones
+# Algoritmos y Estructuras de Datos I - Unidad 03 - Laboratorio 07 - Instrucciones y Tipos
 
 ## Descripción
 

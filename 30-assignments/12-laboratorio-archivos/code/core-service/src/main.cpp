@@ -1,77 +1,179 @@
-#include <iostream> // Incluye la librería iostream para entrada/salida de datos
-#include <cmath>    // Incluye la librería cmath para funciones matemáticas como pow (potencia)
+#include <iostream> // Para entrada y salida (cin, cout)
+#include <fstream>  // Para manejo de archivos (ifstream, ofstream)
+#include <string>   // Para usar std::string
+#include <limits>   // Para std::numeric_limits
+#include <sstream>  // Para std::stringstream
 
-// La función main es el punto de entrada de todo programa C++
+// --- Definición de tipos con typedef ---
+typedef std::string Frase;
+typedef std::string NombreArchivo;
+
+// --- Prototipos de Funciones ---
+
+// Consigna 1.a: Guardar frases en un archivo
+void guardarFrasesEnArchivo(const NombreArchivo& nombreArchivo);
+
+// Consigna 1.b: Abrir y mostrar frases del archivo
+void mostrarFrasesDeArchivo(const NombreArchivo& nombreArchivo);
+
+// Consigna 1.c: Contar palabras por línea, total y promedio
+void contarPalabrasEnArchivo(const NombreArchivo& nombreArchivo);
+
+// Consigna 1.d: Encontrar la palabra más larga en el archivo
+void encontrarPalabraMasLarga(const NombreArchivo& nombreArchivo);
+
+
 int main() {
-    // --- Ejercicio 1: Operaciones básicas y mostrar resultados ---
+    int opcion;
+    const NombreArchivo FILE_NAME = "frasesDeBjarne.txt";
 
-    std::cout << "--- Ejercicio 1: Operaciones basicas ---" << std::endl;
+    do {
+        std::cout << "\n--- MENU PRINCIPAL - TP Unidad 4.1 (Archivos) ---" << std::endl;
+        std::cout << "1. Guardar frases en el archivo" << std::endl;
+        std::cout << "2. Mostrar frases del archivo" << std::endl;
+        std::cout << "3. Contar palabras y promedio en el archivo" << std::endl;
+        std::cout << "4. Encontrar la palabra mas larga en el archivo" << std::endl;
+        std::cout << "0. Salir" << std::endl;
+        std::cout << "Ingrese su opcion: ";
+        std::cin >> opcion;
 
-    // a. La suma de 45 + 34
-    std::cout << "a. Suma de 45 + 34 = " << (45 + 34) << std::endl;
+        // Limpiar el buffer de entrada después de leer un entero
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    // b. La resta de 45 - 40
-    std::cout << "b. Resta de 45 - 40 = " << (45 - 40) << std::endl;
+        switch (opcion) {
+            case 1: // Consigna 1.a: Guardar frases en un archivo
+                guardarFrasesEnArchivo(FILE_NAME);
+                break;
+            case 2: // Consigna 1.b: Abrir y mostrar frases del archivo
+                mostrarFrasesDeArchivo(FILE_NAME);
+                break;
+            case 3: // Consigna 1.c: Contar palabras por línea, total y promedio
+                contarPalabrasEnArchivo(FILE_NAME);
+                break;
+            case 4: // Consigna 1.d: Encontrar la palabra más larga en el archivo
+                encontrarPalabraMasLarga(FILE_NAME);
+                break;
+            case 0:
+                std::cout << "Saliendo del programa." << std::endl;
+                break;
+            default:
+                std::cout << "Opcion invalida. Por favor, intente de nuevo." << std::endl;
+                break;
+        }
+    } while (opcion != 0);
 
-    // c. La division de 46 y 3
-    // Nota: La division de enteros truncara el resultado. Para un resultado decimal,
-    // al menos uno de los operandos debe ser de tipo flotante (double o float).
-    std::cout << "c. Division de 46 y 3 (entera) = " << (46 / 3) << std::endl;
-    std::cout << "c. Division de 46 y 3 (decimal) = " << (static_cast<double>(46) / 3) << std::endl;
+    return 0;
+}
 
-    // d. Un programa que multiplique 65 * 3
-    std::cout << "d. Multiplicacion de 65 * 3 = " << (65 * 3) << std::endl;
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+// --- Implementaciones de Funciones ---
 
-    // --- Ejercicio 2: Uso de variables y operadores ---
+// Consigna 1.a: Guardar frases en un archivo
+void guardarFrasesEnArchivo(const NombreArchivo& nombreArchivo) {
+    std::ofstream archivo(nombreArchivo, std::ios::app); // Abrir en modo append
+    if (!archivo.is_open()) {
+        std::cerr << "Error al abrir el archivo " << nombreArchivo << " para escritura." << std::endl;
+        return;
+    }
 
-    std::cout << "--- Ejercicio 2: Uso de variables y operadores ---" << std::endl;
+    Frase frase;
+    std::cout << "\n--- Guardar frases (escriba 'fin' para terminar) ---" << std::endl;
+    while (true) {
+        std::cout << "Ingrese una frase: ";
+        std::getline(std::cin, frase);
+        if (frase == "fin") {
+            break;
+        }
+        archivo << frase << std::endl;
+    }
+    archivo.close();
+    std::cout << "Frases guardadas en " << nombreArchivo << std::endl;
+}
 
-    // a. Calcula el volumen de una habitacion
-    // Declaracion e inicializacion de variables para las dimensiones de la habitacion
-    double largo_habitacion = 5.0;  // metros
-    double ancho_habitacion = 4.0;  // metros
-    double alto_habitacion = 2.5;   // metros
+// Consigna 1.b: Abrir y mostrar frases del archivo
+void mostrarFrasesDeArchivo(const NombreArchivo& nombreArchivo) {
+    std::ifstream archivo(nombreArchivo);
+    if (!archivo.is_open()) {
+        std::cerr << "Error al abrir el archivo " << nombreArchivo << " para lectura." << std::endl;
+        return;
+    }
 
-    // Calculo del volumen
-    double volumen_habitacion = largo_habitacion * ancho_habitacion * alto_habitacion;
+    Frase frase;
+    std::cout << "\n--- Frases en el archivo " << nombreArchivo << " ---" << std::endl;
+    while (std::getline(archivo, frase)) {
+        std::cout << frase << std::endl; // Cada frase en una línea
+        std::cout << std::endl;          // Interlineado
+    }
+    archivo.close();
+}
 
-    // Mostrar el resultado
-    std::cout << "a. El volumen de la habitacion es: " << volumen_habitacion << " metros cubicos." << std::endl;
+// Consigna 1.c: Contar palabras por línea, total y promedio
+void contarPalabrasEnArchivo(const NombreArchivo& nombreArchivo) {
+    std::ifstream archivo(nombreArchivo);
+    if (!archivo.is_open()) {
+        std::cerr << "Error al abrir el archivo " << nombreArchivo << " para lectura." << std::endl;
+        return;
+    }
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+    Frase linea;
+    int totalLineas = 0;
+    int totalPalabras = 0;
 
-    // b. Calcula el volumen de un cono
-    // Declaracion e inicializacion de variables para el cono
-    double radio_base_cono = 14.5;  // unidades
-    double altura_cono = 26.79;     // unidades
-    const double PI = 3.14;         // Definicion de la constante PI
+    std::cout << "\n--- Conteo de palabras en " << nombreArchivo << " ---" << std::endl;
+    while (std::getline(archivo, linea)) {
+        totalLineas++;
+        std::stringstream ss(linea);
+        std::string palabra;
+        int palabrasPorLinea = 0;
+        while (ss >> palabra) {
+            palabrasPorLinea++;
+        }
+        std::cout << "Linea " << totalLineas << ": " << palabrasPorLinea << " palabras." << std::endl;
+        totalPalabras += palabrasPorLinea;
+    }
+    archivo.close();
 
-    // Formula para el volumen del cono: (Pi * (radio)^2 * altura) / 3
-    // Usamos pow(base, exponente) de la libreria cmath para calcular el radio al cuadrado
-    double volumen_cono = (PI * pow(radio_base_cono, 2) * altura_cono) / 3;
+    std::cout << "\nCantidad total de palabras: " << totalPalabras << std::endl;
+    if (totalLineas > 0) {
+        std::cout << "Promedio de palabras por linea: " << static_cast<double>(totalPalabras) / totalLineas << std::endl;
+    } else {
+        std::cout << "El archivo esta vacio, no se puede calcular el promedio." << std::endl;
+    }
+}
 
-    // Mostrar el resultado
-    std::cout << "b. El volumen del cono es: " << volumen_cono << " unidades cubicas." << std::endl;
+// Consigna 1.d: Encontrar la palabra más larga en el archivo
+void encontrarPalabraMasLarga(const NombreArchivo& nombreArchivo) {
+    std::ifstream archivo(nombreArchivo);
+    if (!archivo.is_open()) {
+        std::cerr << "Error al abrir el archivo " << nombreArchivo << " para lectura." << std::endl;
+        return;
+    }
 
-    std::cout << std::endl; // Salto de linea para separar los ejercicios
+    std::string palabraMasLarga = "";
+    std::string linea;
 
-    // c. Modificar el programa anterior para que usen variables Dobles
-    // En este caso, ya hemos usado variables de tipo 'double' para los calculos del cono
-    // en el apartado 'b'. Esto asegura una mayor precision en los resultados decimales.
+    std::cout << "\n--- Buscando la palabra mas larga en " << nombreArchivo << " ---" << std::endl;
+    while (std::getline(archivo, linea)) {
+        std::stringstream ss(linea);
+        std::string palabra;
+        while (ss >> palabra) {
+            // Eliminar puntuación si es necesario para una comparación precisa
+            std::string palabraLimpia;
+            for (char c : palabra) {
+                if (std::isalnum(c)) { // Solo caracteres alfanuméricos
+                    palabraLimpia += c;
+                }
+            }
+            if (palabraLimpia.length() > palabraMasLarga.length()) {
+                palabraMasLarga = palabraLimpia;
+            }
+        }
+    }
+    archivo.close();
 
-    std::cout << "c. Modificacion para usar variables Dobles:" << std::endl;
-    std::cout << "   Para el calculo del volumen del cono en el apartado 'b', ya se utilizaron" << std::endl;
-    std::cout << "   variables de tipo 'double' (radio_base_cono, altura_cono, PI, volumen_cono)." << std::endl;
-    std::cout << "   La principal diferencia al usar 'double' en lugar de 'float' (o enteros para divisiones)" << std::endl;
-    std::cout << "   es la PRECISION. 'double' almacena numeros de punto flotante con doble precision," << std::endl;
-    std::cout << "   lo que significa que puede representar un rango mas amplio de valores y con mas" << std::endl;
-    std::cout << "   decimales significativos. Esto es crucial para calculos cientificos o de ingenieria" << std::endl;
-    std::cout << "   donde la exactitud es fundamental." << std::endl;
-    std::cout << "   Por ejemplo, si hubieramos usado 'float' para PI (3.14f) o para las dimensiones," << std::endl;
-    std::cout << "   el resultado del volumen podria tener una ligera diferencia debido a la menor precision." << std::endl;
-    std::cout << "   Con 'double', el resultado es mas cercano al valor matematicamente exacto." << std::endl;
-
-    return 0; // Indica que el programa finalizo correctamente
+    if (!palabraMasLarga.empty()) {
+        std::cout << "La palabra mas larga encontrada es: '" << palabraMasLarga << "' (Longitud: " << palabraMasLarga.length() << ")" << std::endl;
+    } else {
+        std::cout << "El archivo esta vacio o no contiene palabras." << std::endl;
+    }
 }
