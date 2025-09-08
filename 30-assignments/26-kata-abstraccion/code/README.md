@@ -1,4 +1,4 @@
-# Algoritmos y Estructuras de Datos I - Evolución de la Abstracción
+# Algoritmos y Estructuras de Datos I - Unidad 08 - Kata 02 - Abstraccion
 
 Este repositorio contiene las distintas **iteraciones de código** desarrolladas para comprender los conceptos de **Abstracción**, **Encapsulamiento** y **Tipo de Dato Abstracto (TDA)** en la programación orientada a objetos (POO).
 
