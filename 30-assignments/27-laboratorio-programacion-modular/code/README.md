@@ -26,18 +26,36 @@ Programa en C++ para la administración de alumnos, permitiendo gestionar una li
 ## Estructura de directorios
 
 ```shell
- .
-├──  .env
-├──  .gitignore
-├──  compose.yaml
-├──  core-service
-│   ├──  .dockerignore
-│   ├──  compose.yaml
-│   ├──  Dockerfile
-│   └── 󱧼 src
-│       └──  main.cpp
-├──  Makefile
-└──  README.md
+ .
+├──  compose.yaml
+├──  core-service
+│   ├──  build.sh
+│   ├──  compose.yaml
+│   ├──  Dockerfile
+│   ├──  include
+│   │   ├──  app
+│   │   │   └──  app_entrypoint.h
+│   │   ├──  domain
+│   │   │   ├──  alumno_manager.h
+│   │   │   └──  persistence_manager.h
+│   │   ├──  types
+│   │   │   └──  alumno_types.h
+│   │   └──  utils
+│   │       └──  helpers.h
+│   ├──  run.sh
+│   └── 󰣞 src
+│       ├──  app
+│       │   └──  app_entrypoint.cpp
+│       ├──  domain
+│       │   ├──  alumno_manager.cpp
+│       │   └──  persistence_manager.cpp
+│       ├──  main.cpp
+│       ├──  types
+│       │   └──  alumno_types.cpp
+│       └──  utilities
+│           └──  helpers.cpp
+├──  Makefile
+└── 󰂺 README.md
 ```
 
 ## Uso
