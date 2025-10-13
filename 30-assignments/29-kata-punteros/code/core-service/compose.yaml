@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
-    command: /app/run.sh # Runs the run script
+    command: /app/build/main # Runs the compiled binary directly
     # This service has no 'profiles' key, so it's part of the default set
     # that starts with 'docker compose up' without any profile specified.
 
