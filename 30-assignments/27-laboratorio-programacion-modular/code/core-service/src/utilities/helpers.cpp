@@ -53,10 +53,6 @@ void pausaConsola(const string& mensaje) {
     cin.get(); // Wait for the user to press ENTER
 }
 
-
-
-
-
 /**
  * @brief Displays the main menu and asks the user for an option.
  * @return The chosen option number (0-6) or -1 if the input is invalid.
