@@ -20,7 +20,7 @@ void mostrarListado(const StudentManagement::Types::tListaAlumnos& lista);
 void buscarYMostrarAlumno(const StudentManagement::Types::tListaAlumnos& lista);               
 void insertarAlumno(StudentManagement::Types::tListaAlumnos& lista);                     
 void eliminarAlumno(StudentManagement::Types::tListaAlumnos& lista);                     
-void ordenarYMostrar(StudentManagement::Types::tListaAlumnos& lista);
+void ordenarYMostrar(const StudentManagement::Types::tListaAlumnos& lista);
 
 } // namespace Domain
 } // namespace StudentManagement                    

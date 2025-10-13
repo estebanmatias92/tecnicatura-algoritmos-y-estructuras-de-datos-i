@@ -1,7 +1,6 @@
 #include "domain/alumno_manager.h"
 #include "types/alumno_types.h"
 #include "utils/helpers.h" // For using pausaConsola and mostrarMenu
-#include <algorithm> // Required for std::sort
 #include <iomanip>   // For printing formats
 #include <iostream>
 #include <limits>
@@ -26,6 +25,39 @@ using StudentManagement::Types::W_NOMBRE;
 
 namespace StudentManagement {
 namespace Domain {
+
+// ----------------------------------------------------------------------------------
+// --- PRIVATE HELPER PROTOTYPES ---
+// ----------------------------------------------------------------------------------
+
+static void swap(tRegistro &a, tRegistro &b) {
+    tRegistro temp = a;
+    a = b;
+    b = temp;
+}
+
+static void burbujaSort(tListaAlumnos &lista, bool ascendente) {
+    int n = lista.contador;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            bool debeIntercambiar = false;
+            if (ascendente) {
+                if (lista.alumnos[j] > lista.alumnos[j + 1]) {
+                    debeIntercambiar = true;
+                }
+            } else {
+                if (lista.alumnos[j] < lista.alumnos[j + 1]) {
+                    debeIntercambiar = true;
+                }
+            }
+
+            if (debeIntercambiar) {
+                swap(lista.alumnos[j], lista.alumnos[j + 1]);
+            }
+        }
+    }
+}
+
 
 // ----------------------------------------------------------------------------------
 // --- DOMAIN UTILITIES IMPLEMENTATION ---
@@ -57,18 +89,12 @@ int buscarAlumnoPorLegajo(const tListaAlumnos &lista, int legajo) {
 }
 
 /**
- * @brief Sorts the list of students by enrollment number.
+ * @brief Sorts the list of students by enrollment number using Bubble Sort.
  * @param lista The list of students (modified).
  * @param ascendente True for ascending order, false for descending order.
  */
 void ordenarAlumnos(tListaAlumnos &lista, bool ascendente) {
-  if (ascendente) {
-    std::sort(lista.alumnos, lista.alumnos + lista.contador,
-              StudentManagement::Types::operator<);
-  } else {
-    std::sort(lista.alumnos, lista.alumnos + lista.contador,
-              StudentManagement::Types::operator>);
-  }
+  burbujaSort(lista, ascendente);
 }
 
 // ----------------------------------------------------------------------------------
@@ -224,10 +250,10 @@ void eliminarAlumno(tListaAlumnos &lista) {
 }
 
 /**
- * @brief Displays sorting options, sorts, and then displays the list.
- * @param lista The list of students (temporarily modified for sorting).
+ * @brief Displays sorting options, sorts a copy of the list, and then displays it.
+ * @param lista The original list of students, which will not be modified.
  */
-void ordenarYMostrar(tListaAlumnos &lista) {
+void ordenarYMostrar(const tListaAlumnos &lista) {
   if (lista.contador == 0) {
     cout << "\nLa lista está vacía. No hay nada que ordenar.\n";
     return;
@@ -247,12 +273,15 @@ void ordenarYMostrar(tListaAlumnos &lista) {
   }
   cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+  // Create a copy of the list to avoid modifying the original
+  tListaAlumnos listaCopiada = lista;
+
   bool ascendente = (opcion == 1);
-  ordenarAlumnos(lista, ascendente);
+  ordenarAlumnos(listaCopiada, ascendente);
 
   cout << "\n✅ Lista ordenada (" << (ascendente ? "Ascendente" : "Descendente")
        << ").\n";
-  mostrarListado(lista);
+  mostrarListado(listaCopiada);
 }
 
 } // namespace Domain

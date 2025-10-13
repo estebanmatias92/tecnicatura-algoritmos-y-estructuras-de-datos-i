@@ -2,22 +2,26 @@
 
 ## Descripción
 
-Programa en C++ para generación y visualización de arrays numéricos con diferentes criterios de selección, utilizando estructuras de datos básicas.
+Programa en C++ para la administración de alumnos, permitiendo gestionar una lista de estudiantes con operaciones de alta, baja, búsqueda, listado y ordenamiento. Utiliza estructuras de datos básicas y persistencia de datos en archivo.
 
 ## Características
 
-- **Generación de arrays**:
-  - 100 primeros números enteros
-  - Números primos entre 1-100
-  - Números impares entre 1-100
-- **Visualización organizada**:
-  - 10 números por línea para mejor legibilidad
-  - Conteo preciso de elementos
-- **Algoritmos eficientes**:
-  - Detección óptima de números primos
-  - Identificación rápida de impares
+- **Gestión completa de alumnos**:
+  - Alta de nuevos alumnos con validación de legajo único.
+  - Baja de alumnos por número de legajo.
+  - Búsqueda de alumnos por número de legajo.
+  - Listado de todos los alumnos registrados.
+  - Ordenamiento de la lista de alumnos por legajo (ascendente/descendente).
+- **Persistencia de datos**:
+  - Carga automática de datos desde un archivo (`Alumnos.txt`) al iniciar.
+  - Guardado automático de cambios en el archivo al salir o bajo demanda.
+- **Interfaz de usuario interactiva**:
+  - Menú de opciones claro y fácil de usar.
+  - Mensajes informativos y de error para guiar al usuario.
+- **Modularidad**:
+  - Código organizado en módulos (`app`, `domain`, `persistence`, `utils`) para facilitar el mantenimiento y la escalabilidad.
 - **Tipos personalizados**:
-  - Uso de typedef para claridad en enteros y booleanos
+  - Uso de `struct` y `typedef` para definir `tRegistro` (alumno) y `tListaAlumnos` (lista de alumnos).
 
 ## Estructura de directorios
 
@@ -38,44 +42,52 @@ Programa en C++ para generación y visualización de arrays numéricos con difer
 
 ## Uso
 
-### Para ejecución directa
+### Ejecución sin Docker (desde el directorio `core-service`)
 
-Compilar con:
+Para compilar y ejecutar la aplicación directamente en tu sistema:
 
-```shell
-# From ./core-service
-mkdir -p build
-g++ ./src/main.cpp -o ./build/main
-```
+1.  Navega al directorio `core-service`:
+    ```bash
+    cd ./core-service
+    ```
+2.  Crea el directorio `build` si no existe:
+    ```bash
+    mkdir -p build
+    ```
+3.  Asegúrate de que los scripts de compilación y ejecución tengan permisos de ejecución:
+    ```bash
+    chmod +x ./build.sh ./run.sh
+    ```
+4.  Compila la aplicación:
+    ```bash
+    ./build.sh
+    ```
+5.  Ejecuta la aplicación:
+    ```bash
+    ./run.sh
+    ```
 
-Ejecutar con:
-
-```shell
-# From ./core-service
-./build/main
-```
-
-### Para despliegue con Docker
+### Para despliegue con Docker (desde la raíz del proyecto)
 
 Ejecutar el siguiente comando desde directorio raiz:
 
 ```shell
-# With Make
+# Con Make
 make up-prod
 
-# With compose
+# Con compose
 docker compose up --build
 ```
 
-### Para desarrollo
+### Para desarrollo con Docker (desde la raíz del proyecto)
 
 Ejecutar:
 
 ```shell
-# With Make
+# Con Make
 make run-dev
 
-# With compose from ./core-service
+# Con compose desde ./core-service
 docker compose --profile interactive run --rm dev_interactive
 ```
 
