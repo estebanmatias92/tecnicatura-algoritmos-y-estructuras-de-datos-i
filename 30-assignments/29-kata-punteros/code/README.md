@@ -1,39 +1,33 @@
-# Algoritmos y Estructuras de Datos I - Unidad 09 - Laboratorio 15 - Programación Modular
+# Algoritmos y Estructuras de Datos I - Unidad 09 - Kata 03 - Punteros
 
 ## Descripción
 
-Programa en C++ para generación y visualización de arrays numéricos con diferentes criterios de selección, utilizando estructuras de datos básicas.
+Programa en C++ que explora la manipulación de punteros, aritmética de punteros y gestión de memoria dinámica (heap) en C++. Demuestra el comportamiento de los operadores de incremento y decremento con punteros y la importancia de la liberación correcta de memoria.
 
 ## Características
 
-- **Generación de arrays**:
-  - 100 primeros números enteros
-  - Números primos entre 1-100
-  - Números impares entre 1-100
-- **Visualización organizada**:
-  - 10 números por línea para mejor legibilidad
-  - Conteo preciso de elementos
-- **Algoritmos eficientes**:
-  - Detección óptima de números primos
-  - Identificación rápida de impares
-- **Tipos personalizados**:
-  - Uso de typedef para claridad en enteros y booleanos
+- **Gestión de Memoria Dinámica**: Asignación y liberación explícita de memoria en el heap utilizando `new` y `delete`.
+- **Aritmética de Punteros**: Demostración de los operadores `++` y `--` con punteros y sus implicaciones en la dirección de memoria.
+- **Comportamiento Indefinido (Undefined Behavior)**: Ilustración de un caso donde la desreferenciación de un puntero a una ubicación de memoria no asignada puede llevar a un comportamiento indefinido.
+- **Prevención de Punteros Colgantes**: Uso de `nullptr` para evitar punteros colgantes después de liberar memoria.
+- **Conceptos Fundamentales de Punteros**: Refuerzo de la comprensión de cómo los punteros almacenan direcciones de memoria y cómo se manipulan.
 
 ## Estructura de directorios
 
 ```shell
- .
+ .
 ├──  .env
-├──  .gitignore
-├──  compose.yaml
-├──  core-service
-│   ├──  .dockerignore
-│   ├──  compose.yaml
-│   ├──  Dockerfile
-│   └── 󱧼 src
+├── 󰊢 .gitignore
+├──  compose.yaml
+├──  core-service
+│   ├──  .dockerignore
+│   ├──  compose.yaml
+│   ├──  Dockerfile
+│   └── 󰣞 src
+│       ├──  app
 │       └──  main.cpp
-├──  Makefile
-└──  README.md
+├──  Makefile
+└── 󰂺 README.md
 ```
 
 ## Uso
