@@ -1,4 +1,4 @@
-# Algoritmos y Estructuras de Datos I - Unidad 09 - Kata 03 - Punteros
+# Algoritmos y Estructuras de Datos I - Unidad 10 - Kata 03 - Punteros
 
 ## Descripción
 
