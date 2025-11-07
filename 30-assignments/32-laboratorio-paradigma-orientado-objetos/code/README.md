@@ -1,40 +1,76 @@
-# Algoritmos y Estructuras de Datos I - Unidad 10 - Laboratorio 17 - Punteros y Memoria Dinámica
+# Algoritmos y Estructuras de Datos I - Unidad 11 - Laboratorio 18 - Paradigma Orientado Objetos
 
 ## Descripción
 
-Este proyecto contiene la resolución de una serie de ejercicios prácticos sobre punteros y memoria dinámica en C++. El programa presenta un menú interactivo que permite ejecutar cada uno de los ejercicios de forma individual.
+Este proyecto es una aplicación de consola en C++ que demuestra los principios del Paradigma Orientado a Objetos (POO) a través de una serie de programas modulares. La aplicación principal presenta un menú interactivo que permite ejecutar cada subprograma, cada uno enfocado en una entidad de negocio diferente y con persistencia de datos en archivos.
 
 ## Características
 
-El programa incluye los siguientes ejercicios:
+El programa incluye los siguientes módulos:
 
-1.  **Números Pares y Posición en Memoria**: Rellena un array de 10 números y, utilizando punteros, indica cuáles son números pares y su posición en memoria.
-2.  **Menor Elemento de un Arreglo**: Rellena un arreglo con `n` números y, utilizando punteros, determina el menor elemento del vector.
-3.  **Ordenar Arreglo Dinámico**: Pide al usuario `N` números, los almacena en un arreglo dinámico, los ordena en orden ascendente y los muestra en pantalla.
-4.  **Contador de Vocales**: Pide al usuario una cadena de caracteres e indica cuántas veces aparece cada vocal ('a', 'e', 'i', 'o', 'u') en la cadena, utilizando punteros.
-5.  **Suma de Matrices Dinámicas**: Calcula la suma de dos matrices dinámicas.
-6.  **Matriz Traspuesta**: Lee una matriz dinámica de `NxM` y crea su matriz traspuesta.
-7.  **Mejor Promedio de Alumnos**: Utiliza una estructura `alumno` para almacenar los datos de 3 alumnos, comprueba cuál de los 3 tiene el mejor promedio y muestra sus datos.
+1.  **Gestión de Artículos**: Permite realizar un CRUD (Crear, Leer, Actualizar, Eliminar) de artículos. Calcula automáticamente el precio de venta al detal (+30%) y al por mayor (+15%) a partir de un costo base. Los datos se guardan en `articulos.dat`.
+2.  **Gestión de Alumnos**: Permite gestionar datos de alumnos, incluyendo cédula, nombre y tres notas parciales. Calcula la nota final, determina si el alumno aprobó (nota >= 48) y persiste los datos en `alumnos.dat`.
+3.  **Gestión de Rectángulos**: Permite administrar rectángulos, especificando su base y altura. Calcula automáticamente el área y el perímetro. Los datos se guardan en `rectangulos.dat`.
+4.  **Gestión de Personas**: Permite registrar personas con su nombre y fecha de nacimiento. Calcula la edad de la persona basándose en una fecha "actual" ingresada por el usuario. La información se persiste en `personas.dat`.
 
 ## Estructura de directorios
 
 ```shell
- .
-├──  compose.yaml
-├──  core-service
-│   ├──  build.sh
-│   ├──  compose.yaml
-│   ├──  Dockerfile
-│   ├──  include
-│   │   └──  homework
-│   │       └──  homework.h
-│   ├──  run.sh
-│   └── 󰣞 src
-│       ├──  homework
-│       │   └──  homework.cpp
-│       └──  main.cpp
-├──  Makefile
-└── 󰂺 README.md
+.
+├── .env
+├── .gitignore
+├── compose.yaml
+├── Makefile
+├── README.md
+└── core-service/
+    ├── .dockerignore
+    ├── alumnos.dat
+    ├── articulos.dat
+    ├── build.sh
+    ├── compose.yaml
+    ├── Dockerfile
+    ├── personas.dat
+    ├── rectangulos.dat
+    ├── run.sh
+    ├── build/
+    ├── docs/
+    │   ├── program-01/
+    │   │   ├── class-diagram.md
+    │   │   └── software-requirements-specification.md
+    │   ├── program-02/
+    │   │   ├── class-diagram.md
+    │   │   └── software-requirements-specification.md
+    │   ├── program-03/
+    │   │   ├── class-diagram.md
+    │   │   └── software-requirements-specification.md
+    │   └── program-04/
+    │       ├── class-diagram.md
+    │       └── software-requirements-specification.md
+    ├── include/
+    │   ├── homework/
+    │   │   ├── homework.h
+    │   │   └── utils.h
+    │   ├── program-01/
+    │   │   └── program.h
+    │   ├── program-02/
+    │   │   └── program.h
+    │   ├── program-03/
+    │   │   └── program.h
+    │   └── program-04/
+    │       └── program.h
+    └── src/
+        ├── main.cpp
+        ├── homework/
+        │   ├── homework.cpp
+        │   └── utils.cpp
+        ├── program-01/
+        │   └── program.cpp
+        ├── program-02/
+        │   └── program.cpp
+        ├── program-03/
+        │   └── program.cpp
+        └── program-04/
+            └── program.cpp
 ```
 
 ## Uso
@@ -78,20 +114,15 @@ docker compose up --build
 
 ### Para desarrollo con Docker (desde la raíz del proyecto)
 
-Ejecutar:
+Ejecutar el siguiente comando para una sesión interactiva:
 
 ```shell
 # Con Make
 make run-dev
-
-# Con compose desde ./core-service
-docker compose --profile interactive run --rm dev_interactive
 ```
 
 ## Requisitos
 
 - Compilador C++ (g++ recomendado)
-
 - Docker (opcional, solo para entornos containerizados)
-
 - Sistema operativo con terminal
