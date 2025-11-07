@@ -16,61 +16,59 @@ El programa incluye los siguientes módulos:
 ## Estructura de directorios
 
 ```shell
-.
-├── .env
-├── .gitignore
-├── compose.yaml
-├── Makefile
-├── README.md
-└── core-service/
-    ├── .dockerignore
-    ├── alumnos.dat
-    ├── articulos.dat
-    ├── build.sh
-    ├── compose.yaml
-    ├── Dockerfile
-    ├── personas.dat
-    ├── rectangulos.dat
-    ├── run.sh
-    ├── build/
-    ├── docs/
-    │   ├── program-01/
-    │   │   ├── class-diagram.md
-    │   │   └── software-requirements-specification.md
-    │   ├── program-02/
-    │   │   ├── class-diagram.md
-    │   │   └── software-requirements-specification.md
-    │   ├── program-03/
-    │   │   ├── class-diagram.md
-    │   │   └── software-requirements-specification.md
-    │   └── program-04/
-    │       ├── class-diagram.md
-    │       └── software-requirements-specification.md
-    ├── include/
-    │   ├── homework/
-    │   │   ├── homework.h
-    │   │   └── utils.h
-    │   ├── program-01/
-    │   │   └── program.h
-    │   ├── program-02/
-    │   │   └── program.h
-    │   ├── program-03/
-    │   │   └── program.h
-    │   └── program-04/
-    │       └── program.h
-    └── src/
-        ├── main.cpp
-        ├── homework/
-        │   ├── homework.cpp
-        │   └── utils.cpp
-        ├── program-01/
-        │   └── program.cpp
-        ├── program-02/
-        │   └── program.cpp
-        ├── program-03/
-        │   └── program.cpp
-        └── program-04/
-            └── program.cpp
+ .
+├──  compose.yaml
+├──  core-service
+│   ├──  alumnos.dat
+│   ├──  articulos.dat
+│   ├── 󱧼 build
+│   │   └── 󰡯 main
+│   ├──  build.sh
+│   ├──  compose.yaml
+│   ├──  Dockerfile
+│   ├──  docs
+│   │   ├──  program-01
+│   │   │   ├──  class-diagram.md
+│   │   │   └──  software-requirements-specification.md
+│   │   ├──  program-02
+│   │   │   ├──  class-diagram.md
+│   │   │   └──  software-requirements-specification.md
+│   │   ├──  program-03
+│   │   │   ├──  class-diagram.md
+│   │   │   └──  software-requirements-specification.md
+│   │   └──  program-04
+│   │       ├──  class-diagram.md
+│   │       └──  software-requirements-specification.md
+│   ├──  include
+│   │   ├──  homework
+│   │   │   ├──  homework.h
+│   │   │   └──  utils.h
+│   │   ├──  program-01
+│   │   │   └──  program.h
+│   │   ├──  program-02
+│   │   │   └──  program.h
+│   │   ├──  program-03
+│   │   │   └──  program.h
+│   │   └──  program-04
+│   │       └──  program.h
+│   ├──  personas.dat
+│   ├──  rectangulos.dat
+│   ├──  run.sh
+│   └── 󰣞 src
+│       ├──  homework
+│       │   ├──  homework.cpp
+│       │   └──  utils.cpp
+│       ├──  main.cpp
+│       ├──  program-01
+│       │   └──  program.cpp
+│       ├──  program-02
+│       │   └──  program.cpp
+│       ├──  program-03
+│       │   └──  program.cpp
+│       └──  program-04
+│           └──  program.cpp
+├──  Makefile
+└── 󰂺 README.md
 ```
 
 ## Uso
