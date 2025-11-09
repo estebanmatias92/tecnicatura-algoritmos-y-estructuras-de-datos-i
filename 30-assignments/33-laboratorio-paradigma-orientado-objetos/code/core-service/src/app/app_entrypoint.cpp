@@ -5,14 +5,13 @@
 #include "domain/triangulo.h"
 #include "utils/helpers.h"
 #include <iostream>
-#include <vector> // Using std::vector for dynamic array
+
 #include <limits> // For numeric_limits
 
 // Using declarations for convenience
 using std::cout;
 using std::cin;
 using std::endl;
-using std::vector;
 using std::numeric_limits;
 using std::streamsize;
 using Geometria::Figura;
@@ -37,7 +36,10 @@ const int MAX_FIGURAS = 5; // RF-04: Allow storing 5 figure objects
  * @brief Function containing the main application loop and menu.
  */
 void ejecutarAplicacion() {
-    vector<Figura*> figuras(MAX_FIGURAS, nullptr); // RF-04 & RNF-01: Array of Figura pointers
+    Figura* figuras[MAX_FIGURAS]; // RF-04 & RNF-01: Array of Figura pointers
+    for (int i = 0; i < MAX_FIGURAS; ++i) {
+        figuras[i] = nullptr;
+    }
     int contadorFiguras = 0;
     int opcion;
     
