@@ -1,10 +1,14 @@
 #ifndef PERSISTENCE_MANAGER_H
 #define PERSISTENCE_MANAGER_H
 
+#include <filesystem>
 #include "types/alumno_types.h"
 
 namespace StudentManagement {
 namespace Domain {
+
+// Connection string for service
+const std::string DATABASE_URL = std::filesystem::absolute("data/"  + StudentManagement::Types::NOMBRE_ARCHIVO);
 
 /**
  * @brief Loads student data from the file.

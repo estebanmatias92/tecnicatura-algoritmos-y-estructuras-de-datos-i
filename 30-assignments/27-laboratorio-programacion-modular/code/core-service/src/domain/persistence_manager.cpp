@@ -12,7 +12,6 @@ using std::ofstream;
 using StudentManagement::Types::tListaAlumnos;
 using StudentManagement::Types::tRegistro;
 using StudentManagement::Types::MAX_ALUMNOS;
-using StudentManagement::Types::NOMBRE_ARCHIVO;
 using StudentManagement::Utils::limpiarPantalla;
 using StudentManagement::Utils::pausaConsola;
 
@@ -29,13 +28,13 @@ namespace Domain {
  * @param lista The list of students to populate.
  */
 void cargarDesdeArchivo(tListaAlumnos& lista) {
-    ifstream archivo(NOMBRE_ARCHIVO);
+    ifstream archivo(DATABASE_URL);
     tRegistro nuevoAlumno;
     
     lista.contador = 0; // Reset the list before loading
 
     if (archivo.is_open()) {
-        cout << "📂 Archivo " << NOMBRE_ARCHIVO << " encontrado. Cargando datos...\n";
+        cout << "📂 Archivo " << DATABASE_URL << " encontrado. Cargando datos...\n";
         
         // Reading records
         while (lista.contador < MAX_ALUMNOS && 
@@ -50,7 +49,7 @@ void cargarDesdeArchivo(tListaAlumnos& lista) {
         archivo.close();
         cout << "✅ " << lista.contador << " alumnos cargados correctamente.\n";
     } else {
-        cout << "⚠️ Archivo " << NOMBRE_ARCHIVO << " no encontrado. Se iniciará una lista vacía.\n";
+        cout << "⚠️ Archivo " << DATABASE_URL << " no encontrado. Se iniciará una lista vacía.\n";
     }
 
     pausaConsola("Presione ENTER para continuar...");
@@ -62,7 +61,7 @@ void cargarDesdeArchivo(tListaAlumnos& lista) {
  * @param lista The list of students to save.
  */
 void guardarEnArchivo(const tListaAlumnos& lista) {
-    ofstream archivo(NOMBRE_ARCHIVO);
+    ofstream archivo(DATABASE_URL);
 
     if (archivo.is_open()) {
         for (int i = 0; i < lista.contador; ++i) {
@@ -72,9 +71,9 @@ void guardarEnArchivo(const tListaAlumnos& lista) {
                     << lista.alumnos[i].anio << endl;
         }
         archivo.close();
-        cout << "\n✅ Cambios guardados en " << NOMBRE_ARCHIVO << ".\n";
+        cout << "\n✅ Cambios guardados en " << DATABASE_URL << ".\n";
     } else {
-        cout << "❌ Error al abrir el archivo " << NOMBRE_ARCHIVO << " para guardar.\n";
+        cout << "❌ Error al abrir el archivo " << DATABASE_URL << " para guardar.\n";
     }
 }
 

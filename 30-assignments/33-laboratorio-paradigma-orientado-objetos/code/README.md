@@ -1,27 +1,25 @@
-# Algoritmos y Estructuras de Datos I - Unidad 09 - Laboratorio 15 - Programación Modular
+# Algoritmos y Estructuras de Datos I - Unidad 11 - Laboratorio 19 - Paradigma Orientado Objeto
 
 ## Descripción
 
-Programa en C++ para la administración de alumnos, permitiendo gestionar una lista de estudiantes con operaciones de alta, baja, búsqueda, listado y ordenamiento. Utiliza estructuras de datos básicas y persistencia de datos en archivo.
+Programa en C++ que implementa una jerarquía de clases para figuras geométricas (`Figura`, `Circulo`, `Rectangulo`, `Triangulo`), demostrando los principios de la Programación Orientada a Objetos como la abstracción, el polimorfismo y la herencia. Permite gestionar una colección de figuras y realizar operaciones genéricas sobre ellas.
 
 ## Características
 
-- **Gestión completa de alumnos**:
-  - Alta de nuevos alumnos con validación de legajo único.
-  - Baja de alumnos por número de legajo.
-  - Búsqueda de alumnos por número de legajo.
-  - Listado de todos los alumnos registrados.
-  - Ordenamiento de la lista de alumnos por legajo (ascendente/descendente).
-- **Persistencia de datos**:
-  - Carga automática de datos desde un archivo (`Alumnos.txt`) al iniciar.
-  - Guardado automático de cambios en el archivo al salir o bajo demanda.
+- **Jerarquía de Herencia**:
+  - Clase base abstracta `Figura` con métodos virtuales puros (`dibujar`, `borrar`) y virtuales (`rotar`, `mover`).
+  - Clases derivadas `Circulo`, `Rectangulo` y `Triangulo` que implementan los métodos abstractos.
+- **Polimorfismo**:
+  - Gestión de una colección de figuras mediante punteros a la clase base `Figura*`.
+  - Invocación polimórfica de métodos para demostrar el comportamiento específico de cada figura.
 - **Interfaz de usuario interactiva**:
-  - Menú de opciones claro y fácil de usar.
-  - Mensajes informativos y de error para guiar al usuario.
+  - Menú de opciones claro y fácil de usar para crear y manipular figuras.
+  - Mensajes informativos para guiar al usuario.
 - **Modularidad**:
-  - Código organizado en módulos (`app`, `domain`, `persistence`, `utils`) para facilitar el mantenimiento y la escalabilidad.
-- **Tipos personalizados**:
-  - Uso de `struct` y `typedef` para definir `tRegistro` (alumno) y `tListaAlumnos` (lista de alumnos).
+  - Código organizado en módulos (`app`, `domain`, `utils`) para facilitar el mantenimiento y la escalabilidad.
+- **Calidad de Código**:
+  - Uso de `namespaces` para organizar el código.
+  - Protección contra inclusiones múltiples (`#pragma once` o *include guards*).
 
 ## Estructura de directorios
 
@@ -32,16 +30,15 @@ Programa en C++ para la administración de alumnos, permitiendo gestionar una li
 │   ├──  build.sh
 │   ├──  compose.yaml
 │   ├──  data
-│   │   └──  Alumnos.txt
 │   ├──  Dockerfile
 │   ├──  include
 │   │   ├──  app
 │   │   │   └──  app_entrypoint.h
 │   │   ├──  domain
-│   │   │   ├──  alumno_manager.h
-│   │   │   └──  persistence_manager.h
-│   │   ├──  types
-│   │   │   └──  alumno_types.h
+│   │   │   ├──  figura.h
+│   │   │   ├──  circulo.h
+│   │   │   ├──  rectangulo.h
+│   │   │   └──  triangulo.h
 │   │   └──  utils
 │   │       └──  helpers.h
 │   ├──  run.sh
@@ -49,11 +46,10 @@ Programa en C++ para la administración de alumnos, permitiendo gestionar una li
 │       ├──  app
 │       │   └──  app_entrypoint.cpp
 │       ├──  domain
-│       │   ├──  alumno_manager.cpp
-│       │   └──  persistence_manager.cpp
+│       │   ├──  circulo.cpp
+│       │   ├──  rectangulo.cpp
+│       │   └──  triangulo.cpp
 │       ├──  main.cpp
-│       ├──  types
-│       │   └──  alumno_types.cpp
 │       └──  utils
 │           └──  helpers.cpp
 ├──  Makefile
