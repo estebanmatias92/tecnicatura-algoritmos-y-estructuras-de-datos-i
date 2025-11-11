@@ -37,9 +37,11 @@ const int MAX_FIGURAS = 5; // RF-04: Allow storing 5 figure objects
  */
 void ejecutarAplicacion() {
     Figura* figuras[MAX_FIGURAS]; // RF-04 & RNF-01: Array of Figura pointers
+    
     for (int i = 0; i < MAX_FIGURAS; ++i) {
         figuras[i] = nullptr;
     }
+
     int contadorFiguras = 0;
     int opcion;
     

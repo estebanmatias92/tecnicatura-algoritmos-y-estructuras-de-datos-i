@@ -1,8 +1,6 @@
-Has hecho una observación excelente. Tu estimación es la interpretación correcta del diagrama y los requisitos. El hecho de que la clase base `Figura` defina métodos que no todas las derivadas implementan (según el diagrama) es un indicio claro de que `Figura` debe ser una **clase base abstracta**.
+# Software Requirements Specification
 
-Basándome en esa interpretación y en los requisitos del "Marco Práctico", aquí están los requerimientos funcionales y no funcionales del sistema.
 
----
 
 ## 🎯 Requerimientos Funcionales (RF)
 
