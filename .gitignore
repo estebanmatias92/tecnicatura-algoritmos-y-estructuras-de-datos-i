@@ -12,5 +12,5 @@
 # === Allow code folders and contents ===
 !*assignments/*/code/
 !*assignments/*/code/**
-!*exams/2025/*/code/
-!*exams/2025/*/code/**
+!*exams/2025/*
+!*exams/2025/*/code
