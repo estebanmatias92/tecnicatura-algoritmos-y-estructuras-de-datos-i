@@ -1,22 +1,22 @@
-#include "Cliente.h"
-#include <iostream>
+#include "domain/Cliente.h"
 
-namespace app {
-namespace domain {
+namespace app::domain {
 
-Cliente::Cliente(int id, std::string nombre) : idCliente(id), nombre(std::move(nombre)) {}
+    Cliente::Cliente() : ID_CUIT(""), razonSocial("") {}
 
-void Cliente::mostrar() const {
-    std::cout << "ID Cliente: " << idCliente << ", Nombre: " << nombre << std::endl;
-}
+    Cliente::Cliente(const std::string& cuit, const std::string& razonSocial)
+        : ID_CUIT(cuit), razonSocial(razonSocial) {}
 
-int Cliente::getIdCliente() const {
-    return idCliente;
-}
+    void Cliente::mostrar() {
+        std::cout << "  - CUIT: " << ID_CUIT << ", Razon Social: " << razonSocial << std::endl;
+    }
 
-std::string Cliente::getNombre() const {
-    return nombre;
-}
+    std::string Cliente::getID_CUIT() const {
+        return ID_CUIT;
+    }
 
-} // namespace domain
-} // namespace app
+    std::string Cliente::getRazonSocial() const {
+        return razonSocial;
+    }
+
+} // namespace app::domain

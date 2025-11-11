@@ -1,21 +1,26 @@
-#pragma once
+#ifndef CLIENTE_H
+#define CLIENTE_H
 
 #include <string>
+#include <iostream>
 
-namespace app {
-namespace domain {
+namespace app::domain {
 
-class Cliente {
-private:
-    int idCliente;
-    std::string nombre;
+    class Cliente {
+    private:
+        std::string ID_CUIT;
+        std::string razonSocial;
 
-public:
-    Cliente(int id, std::string nombre);
-    void mostrar() const;
-    int getIdCliente() const;
-    std::string getNombre() const;
-};
+    public:
+        Cliente();
+        Cliente(const std::string& cuit, const std::string& razonSocial);
+        
+        void mostrar();
 
-} // namespace domain
-} // namespace app
+        std::string getID_CUIT() const;
+        std::string getRazonSocial() const;
+    };
+
+} // namespace app::domain
+
+#endif // CLIENTE_H

@@ -1,29 +1,40 @@
-#pragma once
+#ifndef PEDIDO_H
+#define PEDIDO_H
 
-#include <string>
-#include "Cliente.h"
-#include "Articulo.h"
+#include "domain/Cliente.h"
+#include "domain/Empleado.h"
+#include "domain/Equipo.h"
 
-namespace app {
-namespace domain {
+// Forward declarations to avoid circular dependencies if needed, though not strictly necessary here.
+namespace app::domain {
+    class Cliente;
+    class Empleado;
+    class Equipo;
+}
 
-const int MAX_ART_PEDIDO = 10; // Maximo de articulos por pedido
+namespace app::domain {
 
-class Pedido {
-private:
-    int idPedido;
-    Cliente* cliente;
-    Articulo* articulos[MAX_ART_PEDIDO];
-    int cantArticulos;
+    const int MAX_EQUIPOS_POR_PEDIDO = 10; // As per diagram, MAX_POR_PEDIDO
 
-public:
-    Pedido(int id, Cliente* cliente);
-    ~Pedido(); // Destructor para liberar memoria de articulos
-    bool agregarArticulo(Articulo* articulo);
-    void mostrar() const;
-    int getIdPedido() const;
-    Cliente* getCliente() const;
-};
+    class Pedido {
+    private:
+        int id; // Added an ID for easier management
+        Cliente* clienteAsignado;
+        Empleado* empleadoAsignado;
+        Equipo* equiposDelPedido[MAX_EQUIPOS_POR_PEDIDO];
+        int numEquiposEnPedido;
 
-} // namespace domain
-} // namespace app
+    public:
+        Pedido();
+        Pedido(int id, Cliente* cliente, Empleado* empleado);
+
+        void agregarEquipo(Equipo* equipo);
+        void mostrarDetalle();
+
+        int getID() const;
+        Cliente* getCliente() const;
+    };
+
+} // namespace app::domain
+
+#endif // PEDIDO_H

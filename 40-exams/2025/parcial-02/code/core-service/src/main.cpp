@@ -1,6 +1,7 @@
-#include "app_entrypoint.h"
+#include "app/Sistema.h"
 
 int main() {
-    app::app_entrypoint::run();
+    app::Sistema sistema;
+    sistema.run();
     return 0;
 }

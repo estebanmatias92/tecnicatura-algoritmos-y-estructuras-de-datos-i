@@ -1,62 +1,69 @@
-# Algoritmos y Estructuras de Datos I - Parcial 02 - Simulacion
+# Algoritmos y Estructuras de Datos I - Parcial 02 - Simulación
 
 ## Descripción
 
-Programa en C++ que implementa un sistema de gestión para una empresa de cosméticos. Permite registrar clientes, artículos y crear pedidos, asociando artículos a clientes específicos. El sistema sigue el paradigma de Programación Orientada a Objetos (POO) y gestiona colecciones de datos mediante arrays de punteros a objetos en memoria dinámica (heap), sin utilizar la Standard Template Library (STL). La aplicación es de consola y genera reportes de pedidos.
+Este proyecto es una aplicación de consola en C++ que simula un sistema de gestión de pedidos para una empresa que provee equipos de seguridad industrial. El sistema permite gestionar `Pedidos` que se asocian a `Clientes` y `Empleados` preexistentes, y que contienen distintos tipos de `Equipos` (como `Ropa`, `Zapatos` y `Antiparras`).
+
+La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)**, con una clara separación de responsabilidades. La gestión de datos se realiza manualmente sin el uso de la **Standard Template Library (STL)**, utilizando arrays estáticos en el stack para las colecciones principales y un array de punteros para la gestión polimórfica de `Equipos`.
 
 ## Características
 
 - **Gestión de Entidades**:
-  - Clases `Cliente`, `Articulo` y `Pedido` para modelar las entidades del negocio.
-  - `SistemaGestion` centraliza la lógica de negocio y la administración de las colecciones.
-- **Programación Orientada a Objetos**:
-  - Abstracción, encapsulamiento y gestión de relaciones entre objetos.
-- **Gestión Manual de Memoria**:
-  - Uso explícito de `new` y `delete` para la asignación y liberación de memoria en el heap.
-  - Colecciones implementadas como arrays estáticos de punteros.
-- **Interfaz de usuario interactiva**:
-  - Menú de opciones claro y fácil de usar para cargar datos y visualizar reportes.
-  - Mensajes informativos para guiar al usuario.
-- **Modularidad**:
-  - Código organizado en módulos (`app`, `domain`, `utils`) para facilitar el mantenimiento y la escalabilidad.
-- **Calidad de Código**:
-  - Uso de `namespaces` para organizar el código.
-  - Protección contra inclusiones múltiples (`#pragma once` o *include guards*).
+  - Clases para modelar el dominio: `Cliente`, `Empleado`, `Pedido` y una jerarquía de herencia para `Equipo` (`Ropa`, `Zapatos`, `Antiparras`).
+  - Una clase `Sistema` que centraliza la lógica de negocio y la interacción con el usuario.
+- **Programación Orientada a Objetos (POO)**:
+  - **Abstracción**: Clase base abstracta `Equipo`.
+  - **Herencia**: Clases `Ropa`, `Zapatos`, `Antiparras` heredan de `Equipo`.
+  - **Polimorfismo**: Uso de métodos virtuales (`mostrar()`) para describir los diferentes tipos de equipos.
+  - **Encapsulamiento**: Atributos privados y métodos públicos en todas las clases.
+- **Gestión de Memoria y Relaciones**:
+  - **Composición**: El `Sistema` gestiona el ciclo de vida de las colecciones.
+  - **Asociación**: El `Pedido` se asocia a un `Cliente` y un `Empleado` mediante punteros.
+  - **Agregación**: El `Pedido` agrupa una colección de `Equipos` mediante un array de punteros.
+  - Las colecciones de `Clientes`, `Empleados` y `Pedidos` se almacenan en arrays en el **stack**.
+  - La colección polimórfica de `Equipos` se gestiona en el **heap** a través de un array de punteros.
+- **Interfaz de Usuario por Consola**:
+  - Menú de opciones interactivo para navegar por los módulos del sistema.
+  - Operaciones CRUD completas para la entidad `Pedido`.
+- **Modularidad y Calidad de Código**:
+  - Código organizado en namespaces (`app`, `app::domain`, `app::utils`).
+  - Estructura de proyecto basada en el layout **Pitchfork**.
+  - Protección contra inclusiones múltiples con *include guards*.
 
 ## Estructura de directorios
 
 ```shell
- .
-├──  compose.yaml
-├──  core-service
-│   ├──  build.sh
-│   ├──  compose.yaml
-│   ├──  data
-│   ├──  Dockerfile
-│   ├──  include
-│   │   ├──  app
-│   │   │   └──  app_entrypoint.h
-│   │   ├──  domain
-│   │   │   ├──  Articulo.h
-│   │   │   ├──  Cliente.h
-│   │   │   ├──  Pedido.h
-│   │   │   └──  SistemaGestion.h
-│   │   └──  utils
-│   │       └──  helpers.h
-│   ├──  run.sh
-│   └── 󰣞 src
-│       ├──  app
-│       │   └──  app_entrypoint.cpp
-│       ├──  domain
-│       │   ├──  Articulo.cpp
-│       │   ├──  Cliente.cpp
-│       │   ├──  Pedido.cpp
-│       │   └──  SistemaGestion.cpp
-│       ├──  main.cpp
-│       └──  utils
-│           └──  helpers.cpp
-├──  Makefile
-└── 󰂺 README.md
+.
+├── compose.yaml
+├── core-service
+│   ├── build.sh
+│   ├── compose.yaml
+│   ├── data
+│   ├── Dockerfile
+│   ├── include
+│   │   ├── app
+│   │   │   └── Sistema.h
+│   │   ├── domain
+│   │   │   ├── Cliente.h
+│   │   │   ├── Empleado.h
+│   │   │   ├── Equipo.h
+│   │   │   └── Pedido.h
+│   │   └── utils
+│   │       └── helpers.h
+│   ├── run.sh
+│   └── src
+│       ├── app
+│       │   └── Sistema.cpp
+│       ├── domain
+│       │   ├── Cliente.cpp
+│       │   ├── Empleado.cpp
+│       │   ├── Equipo.cpp
+│       │   └── Pedido.cpp
+│       ├── main.cpp
+│       └── utils
+│           └── helpers.cpp
+├── Makefile
+└── README.md
 ```
 
 ## Uso
@@ -69,26 +76,22 @@ Para compilar y ejecutar la aplicación directamente en tu sistema:
     ```bash
     cd ./core-service
     ```
-2.  Crea el directorio `build` si no existe:
-    ```bash
-    mkdir -p build
-    ```
-3.  Asegúrate de que los scripts de compilación y ejecución tengan permisos de ejecución:
+2.  Asegúrate de que los scripts tengan permisos de ejecución:
     ```bash
     chmod +x ./build.sh ./run.sh
     ```
-4.  Compila la aplicación:
+3.  Compila la aplicación. El script creará el directorio `build` si no existe.
     ```bash
     ./build.sh
     ```
-5.  Ejecuta la aplicación:
+4.  Ejecuta la aplicación:
     ```bash
     ./run.sh
     ```
 
 ### Para despliegue con Docker (desde la raíz del proyecto)
 
-Ejecutar el siguiente comando desde directorio raiz:
+Ejecutar el siguiente comando desde el directorio raíz:
 
 ```shell
 # Con Make
@@ -112,8 +115,7 @@ docker compose --profile interactive run --rm dev_interactive
 
 ## Requisitos
 
-- Compilador C++ (g++ recomendado)
-
-- Docker (opcional, solo para entornos containerizados)
-
-- Sistema operativo con terminal
+- Compilador C++ (g++ recomendado).
+- Docker y Docker Compose (opcional, para entornos contenerizados).
+- `make` (opcional, para usar los atajos del Makefile).
+- Un sistema operativo con terminal (Linux, macOS, o WSL en Windows).
