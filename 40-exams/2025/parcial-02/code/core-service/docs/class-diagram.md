@@ -3,6 +3,13 @@
 
 ```plantuml
 @startuml
+' --- Theming! ---
+'!include https://raw.githubusercontent.com/guipatriota/dracula-plantuml-theme/v1.0.0/theme.puml
+'!theme plain
+'!theme toy
+'!theme reddress-darkblue
+!theme vibrant
+
 ' --- Configuración del Diagrama (Refactorizado) ---
 ' Basado en software-requirement-specification.md (entidades hardcodeadas)
 left to right direction
