@@ -30,7 +30,7 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
   - Estructura de proyecto basada en el layout **Pitchfork**.
   - Protección contra inclusiones múltiples con *include guards*.
 
-## Diagrama de
+## Diagrama de Clases
 
 ```mermaid
 classDiagram
