@@ -30,45 +30,7 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
   - Estructura de proyecto basada en el layout **Pitchfork**.
   - Protección contra inclusiones múltiples con *include guards*.
 
-## Estructura de directorios
-
-```shell
-.
-├── compose.yaml
-├── core-service
-│   ├── build.sh
-│   ├── compose.yaml
-│   ├── data
-│   ├── Dockerfile
-│   ├── include
-│   │   ├── app
-│   │   │   └── Sistema.h
-│   │   ├── domain
-│   │   │   ├── Empleado.h
-│   │   │   ├── Sucursal.h
-│   │   │   ├── VendedorEmpresa.h
-│   │   │   ├── VendedorParticular.h
-│   │   │   └── VendedorProfesional.h
-│   │   └── utils
-│   │       └── helpers.h
-│   ├── run.sh
-│   └── src
-│       ├── app
-│       │   └── Sistema.cpp
-│       ├── domain
-│       │   ├── Empleado.cpp
-│       │   ├── Sucursal.cpp
-│       │   ├── VendedorEmpresa.cpp
-│       │   ├── VendedorParticular.cpp
-│       │   └── VendedorProfesional.cpp
-│       ├── main.cpp
-│       └── utils
-│           └── helpers.cpp
-├── Makefile
-└── README.md
-```
-
-## Diagrama de Clases
+## Diagrama de
 
 ```mermaid
 classDiagram
@@ -158,6 +120,44 @@ classDiagram
     Sistema *-- Sucursal
     Sucursal o-- Empleado
     Sistema ..> InputHandler
+```
+
+## Estructura de directorios
+
+```shell
+.
+├── compose.yaml
+├── core-service
+│   ├── build.sh
+│   ├── compose.yaml
+│   ├── data
+│   ├── Dockerfile
+│   ├── include
+│   │   ├── app
+│   │   │   └── Sistema.h
+│   │   ├── domain
+│   │   │   ├── Empleado.h
+│   │   │   ├── Sucursal.h
+│   │   │   ├── VendedorEmpresa.h
+│   │   │   ├── VendedorParticular.h
+│   │   │   └── VendedorProfesional.h
+│   │   └── utils
+│   │       └── helpers.h
+│   ├── run.sh
+│   └── src
+│       ├── app
+│       │   └── Sistema.cpp
+│       ├── domain
+│       │   ├── Empleado.cpp
+│       │   ├── Sucursal.cpp
+│       │   ├── VendedorEmpresa.cpp
+│       │   ├── VendedorParticular.cpp
+│       │   └── VendedorProfesional.cpp
+│       ├── main.cpp
+│       └── utils
+│           └── helpers.cpp
+├── Makefile
+└── README.md
 ```
 
 ## Uso
