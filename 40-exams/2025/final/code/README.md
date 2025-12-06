@@ -1,30 +1,30 @@
-# Algoritmos y Estructuras de Datos I - Parcial 02 - Simulación
+# Algoritmos y Estructuras de Datos I - Examen Final - Gestión de Vendedores
 
 ## Descripción
 
-Este proyecto es una aplicación de consola en C++ que simula un sistema de gestión de pedidos para una empresa que provee equipos de seguridad industrial. El sistema permite gestionar `Pedidos` que se asocian a `Clientes` y `Empleados` preexistentes, y que contienen distintos tipos de `Equipos` (como `Ropa`, `Zapatos` y `Antiparras`).
+Este proyecto es una aplicación de consola en C++ que implementa un sistema de gestión de vendedores para una empresa. El sistema permite gestionar diferentes tipos de `Vendedores` (Particulares, Profesionales y de Empresa) que se asocian a `Sucursales`.
 
-La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)**, con una clara separación de responsabilidades. La gestión de datos se realiza manualmente sin el uso de la **Standard Template Library (STL)**, utilizando arrays estáticos en el stack para las colecciones principales y un array de punteros para la gestión polimórfica de `Equipos`.
+La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)**, con una clara separación de responsabilidades. La gestión de datos se realiza manualmente sin el uso de la **Standard Template Library (STL)**, utilizando arrays estáticos en el stack para las colecciones principales y un array de punteros para la gestión polimórfica de `Vendedores`.
 
 ## Características
 
 - **Gestión de Entidades**:
-  - Clases para modelar el dominio: `Cliente`, `Empleado`, `Pedido` y una jerarquía de herencia para `Equipo` (`Ropa`, `Zapatos`, `Antiparras`).
+  - Clases para modelar el dominio: `Empleado`, `VendedorParticular`, `VendedorProfesional`, `VendedorEmpresa` y `Sucursal`.
   - Una clase `Sistema` que centraliza la lógica de negocio y la interacción con el usuario.
 - **Programación Orientada a Objetos (POO)**:
-  - **Abstracción**: Clase base abstracta `Equipo`.
-  - **Herencia**: Clases `Ropa`, `Zapatos`, `Antiparras` heredan de `Equipo`.
-  - **Polimorfismo**: Uso de métodos virtuales (`mostrar()`) para describir los diferentes tipos de equipos.
-  - **Encapsulamiento**: Atributos privados y métodos públicos en todas las clases.
+  - **Abstracción**: Clase base abstracta `Empleado` con métodos virtuales puros (`trabajar()` y `displayInfo()`).
+  - **Herencia**: Clases `VendedorParticular`, `VendedorProfesional` y `VendedorEmpresa` heredan de `Empleado`.
+  - **Polimorfismo**: Uso de métodos virtuales para comportamientos específicos de cada tipo de vendedor.
+  - **Encapsulamiento**: Atributos privados y métodos públicos/protected en todas las clases.
 - **Gestión de Memoria y Relaciones**:
-  - **Composición**: El `Sistema` gestiona el ciclo de vida de las colecciones.
-  - **Asociación**: El `Pedido` se asocia a un `Cliente` y un `Empleado` mediante punteros.
-  - **Agregación**: El `Pedido` agrupa una colección de `Equipos` mediante un array de punteros.
-  - Las colecciones de `Clientes`, `Empleados` y `Pedidos` se almacenan en arrays en el **stack**.
-  - La colección polimórfica de `Equipos` se gestiona en el **heap** a través de un array de punteros.
+  - **Composición**: El `Sistema` gestiona el ciclo de vida de las `Sucursales`.
+  - **Asociación**: Los `Vendedores` se asocian a `Sucursales` mediante punteros.
+  - **Agregación**: Las `Sucursales` agrupan una colección de `Vendedores` mediante un array de punteros.
+  - Las colecciones de `Sucursales` se almacenan en arrays en el **stack**.
+  - La colección polimórfica de `Vendedores` se gestiona en el **heap** a través de un array de punteros.
 - **Interfaz de Usuario por Consola**:
   - Menú de opciones interactivo para navegar por los módulos del sistema.
-  - Operaciones CRUD completas para la entidad `Pedido`.
+  - Operaciones CRUD completas para la gestión de vendedores (crear, listar, eliminar, modificar).
 - **Modularidad y Calidad de Código**:
   - Código organizado en namespaces (`app`, `app::domain`, `app::utils`).
   - Estructura de proyecto basada en el layout **Pitchfork**.
@@ -44,10 +44,11 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 │   │   ├── app
 │   │   │   └── Sistema.h
 │   │   ├── domain
-│   │   │   ├── Cliente.h
 │   │   │   ├── Empleado.h
-│   │   │   ├── Equipo.h
-│   │   │   └── Pedido.h
+│   │   │   ├── Sucursal.h
+│   │   │   ├── VendedorEmpresa.h
+│   │   │   ├── VendedorParticular.h
+│   │   │   └── VendedorProfesional.h
 │   │   └── utils
 │   │       └── helpers.h
 │   ├── run.sh
@@ -55,10 +56,11 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 │       ├── app
 │       │   └── Sistema.cpp
 │       ├── domain
-│       │   ├── Cliente.cpp
 │       │   ├── Empleado.cpp
-│       │   ├── Equipo.cpp
-│       │   └── Pedido.cpp
+│       │   ├── Sucursal.cpp
+│       │   ├── VendedorEmpresa.cpp
+│       │   ├── VendedorParticular.cpp
+│       │   └── VendedorProfesional.cpp
 │       ├── main.cpp
 │       └── utils
 │           └── helpers.cpp
@@ -72,19 +74,26 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 
 Para compilar y ejecutar la aplicación directamente en tu sistema:
 
-1.  Navega al directorio `core-service`:
+1. Navega al directorio `core-service`:
+
     ```bash
     cd ./core-service
     ```
-2.  Asegúrate de que los scripts tengan permisos de ejecución:
+
+2. Asegúrate de que los scripts tengan permisos de ejecución:
+
     ```bash
     chmod +x ./build.sh ./run.sh
     ```
-3.  Compila la aplicación. El script creará el directorio `build` si no existe.
+
+3. Compila la aplicación. El script creará el directorio `build` si no existe.
+
     ```bash
     ./build.sh
     ```
-4.  Ejecuta la aplicación:
+
+4. Ejecuta la aplicación:
+
     ```bash
     ./run.sh
     ```
@@ -112,6 +121,16 @@ make run-dev
 # Con compose desde ./core-service
 docker compose --profile interactive run --rm dev_interactive
 ```
+
+### Funcionalidades del Sistema
+
+Una vez ejecutada la aplicación, se presenta un menú interactivo con las siguientes opciones:
+
+1. **Crear Vendedores (3 requeridos)**: Permite crear un vendedor de cada tipo (Particular, Profesional y Empresa).
+2. **Listar Vendedores en Sucursal**: Muestra todos los vendedores asociados a una sucursal específica.
+3. **Listar Todos los Vendedores**: Muestra todos los vendedores en todas las sucursales.
+4. **Eliminar Vendedor**: Permite eliminar un vendedor seleccionado de la sucursal.
+5. **Modificar Vendedor**: Permite modificar los datos de un vendedor seleccionado.
 
 ## Requisitos
 

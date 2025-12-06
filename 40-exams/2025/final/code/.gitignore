@@ -135,12 +135,12 @@ dkms.conf
 # Custom .gitignore #
 #####################
 
-# Build-time 
+# Build-time
 build/
 bin/
 *.log
 guests.txt
 
 # Docker, Compose
-#*compose*.yaml
-#*compose*.yml
+*compose*.yaml
+*compose*.yml
