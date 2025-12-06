@@ -68,6 +68,98 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 └── README.md
 ```
 
+## Diagrama de Clases
+
+```mermaid
+classDiagram
+    class Empleado {
+        -string name
+        -float salary
+        -string area
+        -string contact_info
+        +Empleado()
+        +Empleado(string name, float salary, string area, string contact_info)
+        +trabajar() void <<abstract>>
+        +displayInfo() void <<abstract>>
+        +getName() string
+        +getSalary() float
+        +getArea() string
+        +getContactInfo() string
+        +setName(string name) void
+        +setSalary(float salary) void
+        +setArea(string area) void
+        +setContactInfo(string contact) void
+        +~Empleado() void
+    }
+
+    class VendedorParticular {
+        +VendedorParticular()
+        +VendedorParticular(string name, float salary, string area, string contact_info)
+        +trabajar() void
+        +displayInfo() void
+    }
+
+    class VendedorProfesional {
+        +VendedorProfesional()
+        +VendedorProfesional(string name, float salary, string area, string contact_info)
+        +trabajar() void
+        +displayInfo() void
+    }
+
+    class VendedorEmpresa {
+        +VendedorEmpresa()
+        +VendedorEmpresa(string name, float salary, string area, string contact_info)
+        +trabajar() void
+        +displayInfo() void
+    }
+
+    class Sucursal {
+        -int id
+        -string name
+        -Empleado* vendedores[MAX_VENDEDORES]
+        -int vendedor_count
+        -int max_vendedores
+        +Sucursal()
+        +Sucursal(int id, string name)
+        +addVendedor(Empleado*) void
+        +removeVendedor(Empleado*) void
+        +listarVendedores() Empleado**
+        +getVendedor(int) Empleado*
+        +getVendedorCount() int
+        +getName() string
+        +displayInfo() void
+        +~Sucursal() void
+    }
+
+    class Sistema {
+        -Sucursal* sucursales[MAX_SUCURSALES]
+        -int sucursal_count
+        -int next_sucursal_id
+        +Sistema()
+        +menuPrincipal() void
+        +crearVendedores() void
+        +listarVendedoresEnSucursal() void
+        +listarTodosVendedores() void
+        +eliminarVendedor() void
+        +modificarVendedor() void
+        +run() void
+        +~Sistema() void
+    }
+
+    class InputHandler {
+        +getStringInput(string prompt) string
+        +getFloatInput(string prompt) float
+        +getIntInput(string prompt) int
+    }
+
+    Empleado <|-- VendedorParticular
+    Empleado <|-- VendedorProfesional
+    Empleado <|-- VendedorEmpresa
+    Sistema *-- Sucursal
+    Sucursal o-- Empleado
+    Sistema ..> InputHandler
+```
+
 ## Uso
 
 ### Ejecución sin Docker (desde el directorio `core-service`)
