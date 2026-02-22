@@ -28,7 +28,7 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 - **Modularidad y Calidad de Código**:
   - Código organizado en namespaces (`app`, `app::domain`, `app::utils`).
   - Estructura de proyecto basada en el layout **Pitchfork**.
-  - Protección contra inclusiones múltiples con *include guards*.
+  - Protección contra inclusiones múltiples con _include guards_.
 
 ## Estructura de directorios
 
