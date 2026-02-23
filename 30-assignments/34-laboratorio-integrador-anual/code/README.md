@@ -2,33 +2,35 @@
 
 ## Descripción
 
-Este proyecto es una aplicación de consola en C++ que simula un sistema de gestión de pedidos para una empresa que provee equipos de seguridad industrial. El sistema permite gestionar `Pedidos` que se asocian a `Clientes` y `Empleados` preexistentes, y que contienen distintos tipos de `Equipos` (como `Ropa`, `Zapatos` y `Antiparras`).
+Este proyecto es una aplicación de consola en C++ que simula un sistema de gestión de pedidos para "Ukelele Chicken - Boutique de Carnes" (una carnicería en Santa Clara del Mar). El sistema permite gestionar `Pedidos` que se asocian a `Clientes` y `Empleados` preexistentes, y que contienen distintos tipos de `Animales` (como `Pollo`, `Vacuno` y `Cerdo`).
 
-La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)**, con una clara separación de responsabilidades. La gestión de datos se realiza manualmente sin el uso de la **Standard Template Library (STL)**, utilizando arrays estáticos en el stack para las colecciones principales y un array de punteros para la gestión polimórfica de `Equipos`.
+La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)**, con una clara separación de responsabilidades. La gestión de datos se realiza manualmente sin el uso de la **Standard Template Library (STL)**, utilizando arrays estáticos en el stack para las colecciones principales y un array de punteros para la gestión polimórfica de `Animales`.
 
 ## Características
 
 - **Gestión de Entidades**:
-  - Clases para modelar el dominio: `Cliente`, `Empleado`, `Pedido` y una jerarquía de herencia para `Equipo` (`Ropa`, `Zapatos`, `Antiparras`).
+  - Clases para modelar el dominio: `Cliente`, `Empleado`, `Pedido` y una jerarquía de herencia para `Animal` (`Pollo`, `Vacuno`, `Cerdo`).
   - Una clase `Sistema` que centraliza la lógica de negocio y la interacción con el usuario.
 - **Programación Orientada a Objetos (POO)**:
-  - **Abstracción**: Clase base abstracta `Equipo`.
-  - **Herencia**: Clases `Ropa`, `Zapatos`, `Antiparras` heredan de `Equipo`.
-  - **Polimorfismo**: Uso de métodos virtuales (`mostrar()`) para describir los diferentes tipos de equipos.
+  - **Abstracción**: Clase base abstracta `Animal` con métodos virtuales puros (`comer()`, `dormir()`).
+  - **Herencia**: Clases `Pollo`, `Vacuno`, `Cerdo` heredan de `Animal`.
+  - **Polimorfismo**: Uso de métodos virtuales (`mostrar()`, `comer()`, `dormir()`) para describir los diferentes tipos de animales.
   - **Encapsulamiento**: Atributos privados y métodos públicos en todas las clases.
 - **Gestión de Memoria y Relaciones**:
   - **Composición**: El `Sistema` gestiona el ciclo de vida de las colecciones.
   - **Asociación**: El `Pedido` se asocia a un `Cliente` y un `Empleado` mediante punteros.
-  - **Agregación**: El `Pedido` agrupa una colección de `Equipos` mediante un array de punteros.
+  - **Agregación**: El `Pedido` agrupa una colección de `Animales` mediante un array de punteros.
   - Las colecciones de `Clientes`, `Empleados` y `Pedidos` se almacenan en arrays en el **stack**.
-  - La colección polimórfica de `Equipos` se gestiona en el **heap** a través de un array de punteros.
+  - La colección polimórfica de `Animales` se gestiona en el **heap** a través de un array de punteros.
 - **Interfaz de Usuario por Consola**:
   - Menú de opciones interactivo para navegar por los módulos del sistema.
-  - Operaciones CRUD completas para la entidad `Pedido`.
+  - Operaciones CRUD completas para la entidad `Pedido` (Alta, Baja, Modificación, Listado).
+  - Demo de polimorfismo mostrando comportamiento de diferentes animales.
 - **Modularidad y Calidad de Código**:
   - Código organizado en namespaces (`app`, `app::domain`, `app::utils`).
   - Estructura de proyecto basada en el layout **Pitchfork**.
   - Protección contra inclusiones múltiples con _include guards_.
+  - Documentación con comentarios doxygen.
 
 ## Estructura de directorios
 
@@ -44,9 +46,9 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 │   │   ├── app
 │   │   │   └── Sistema.h
 │   │   ├── domain
+│   │   │   ├── Animal.h
 │   │   │   ├── Cliente.h
 │   │   │   ├── Empleado.h
-│   │   │   ├── Equipo.h
 │   │   │   └── Pedido.h
 │   │   └── utils
 │   │       └── helpers.h
@@ -55,9 +57,12 @@ La arquitectura sigue el paradigma de **Programación Orientada a Objetos (POO)*
 │       ├── app
 │       │   └── Sistema.cpp
 │       ├── domain
+│       │   ├── Animal.cpp
+│       │   ├── Pollo.cpp
+│       │   ├── Vacuno.cpp
+│       │   ├── Cerdo.cpp
 │       │   ├── Cliente.cpp
 │       │   ├── Empleado.cpp
-│       │   ├── Equipo.cpp
 │       │   └── Pedido.cpp
 │       ├── main.cpp
 │       └── utils
@@ -91,7 +96,7 @@ Para compilar y ejecutar la aplicación directamente en tu sistema:
 
 ### Para despliegue con Docker (desde la raíz del proyecto)
 
-Ejecutar el siguiente comando desde el directorio raíz:
+Ejecutar el siguiente comando desde del directorio raíz:
 
 ```shell
 # Con Make
