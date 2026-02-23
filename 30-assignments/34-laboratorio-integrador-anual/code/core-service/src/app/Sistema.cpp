@@ -4,7 +4,6 @@
 #include <string>
 #include <limits>
 
-// Using declarations for convenience
 using std::cin;
 using std::cout;
 using std::endl;
@@ -12,39 +11,32 @@ using std::string;
 
 namespace app {
 
-// --- Constructor y Destructor ---
-
-Sistema::Sistema() : numClientes(0), numEmpleados(0), numPedidos(0), numEquipos(0), nextPedidoID(1) {
+Sistema::Sistema() : numClientes(0), numEmpleados(0), numPedidos(0), numAnimales(0), nextPedidoID(1) {
     inicializarDatos();
 }
 
 Sistema::~Sistema() {
-    // Liberar memoria de los equipos (NFR-M3)
-    for (int i = 0; i < numEquipos; ++i) {
-        delete listaEquipos[i];
+    for (int i = 0; i < numAnimales; ++i) {
+        delete listaAnimales[i];
     }
 }
 
-// --- Inicialización de Datos ---
-
 void Sistema::inicializarDatos() {
-    // Carga de Equipos (FR-M1.1)
-    listaEquipos[numEquipos++] = new domain::Ropa("R001", "Camisa de Trabajo", 25.50, "L", "Azul");
-    listaEquipos[numEquipos++] = new domain::Ropa("R002", "Pantalon Cargo", 45.00, "32", "Beige");
-    listaEquipos[numEquipos++] = new domain::Zapatos("Z001", "Botas de Seguridad", 80.00, 42, "Punta de Acero");
-    listaEquipos[numEquipos++] = new domain::Zapatos("Z002", "Zapatos de Oficina", 60.00, 41, "Punta Redonda");
-    listaEquipos[numEquipos++] = new domain::Antiparras("A001", "Antiparras de Seguridad", 15.00);
+    listaAnimales[numAnimales++] = new domain::Pollo("P001", "Pollo Entero", 1200.00, "Pollo", true, 2.5f);
+    listaAnimales[numAnimales++] = new domain::Pollo("P002", "Pechuga de Pollo", 1800.00, "Pollo", false, 1.2f);
+    listaAnimales[numAnimales++] = new domain::Pollo("P003", "Alas de Pollo", 950.00, "Pollo", true, 0.8f);
+    listaAnimales[numAnimales++] = new domain::Vacuno("V001", "Asado", 4500.00, "Vacuno", "Asado", "Santa Clara del Mar");
+    listaAnimales[numAnimales++] = new domain::Vacuno("V002", "Cuadril", 5200.00, "Vacuno", "Cuadril", "Buenos Aires");
+    listaAnimales[numAnimales++] = new domain::Cerdo("C001", "Costilla de Cerdo", 2800.00, "Cerdo", "Costilla", true);
+    listaAnimales[numAnimales++] = new domain::Cerdo("C002", "Lomo de Cerdo", 3200.00, "Cerdo", "Lomo", false);
 
-    // Carga de Clientes (FR-M2.1)
-    listaClientes[numClientes++] = domain::Cliente("20-12345678-9", "Constructora XYZ S.A.");
-    listaClientes[numClientes++] = domain::Cliente("30-87654321-5", "Industrias Acme S.R.L.");
+    listaClientes[numClientes++] = domain::Cliente("20-12345678-9", "Juan Lopez");
+    listaClientes[numClientes++] = domain::Cliente("30-87654321-5", "Maria Garcia");
+    listaClientes[numClientes++] = domain::Cliente("27-11223344-5", "Carlos Rodriguez");
 
-    // Carga de Empleados (FR-M3.1)
-    listaEmpleados[numEmpleados++] = domain::Empleado("L001", "Juan", "Perez");
-    listaEmpleados[numEmpleados++] = domain::Empleado("L002", "Maria", "Gomez");
+    listaEmpleados[numEmpleados++] = domain::Empleado("L001", "Pedro", "Martinez");
+    listaEmpleados[numEmpleados++] = domain::Empleado("L002", "Laura", "Fernandez");
 }
-
-// --- Flujo Principal de la Aplicación ---
 
 void Sistema::run() {
     menuPrincipal();
@@ -54,12 +46,15 @@ void Sistema::menuPrincipal() {
     int opcion;
     do {
         utils::clearScreen();
-        cout << "==== SISTEMA DE GESTION DE PEDIDOS ====\n"
-             << "1. Listar Equipos\n"
+        cout << "=======================================\n"
+             << "   UKELE CHICKEN - BOUTIQUE DE CARNES\n"
+             << "=======================================\n"
+             << "1. Listar Animales (Carnes)\n"
              << "2. Listar Clientes\n"
              << "3. Listar Empleados\n"
              << "4. Gestion de Pedidos\n"
              << "5. Ver Reporte de Pedidos por Cliente\n"
+             << "6. Demo Polimorfismo (Comer/Dormir)\n"
              << "---------------------------------------\n"
              << "0. Salir\n"
              << "=======================================\n"
@@ -75,11 +70,12 @@ void Sistema::menuPrincipal() {
         }
 
         switch (opcion) {
-            case 1: listarEquipos(); break;
+            case 1: listarAnimales(); break;
             case 2: listarClientes(); break;
             case 3: listarEmpleados(); break;
             case 4: menuGestionPedidos(); break;
             case 5: mostrarPedidosClientes(); break;
+            case 6: demoPolimorfismo(); break;
             case 0: cout << "Saliendo del sistema..." << endl; break;
             default: cout << "Opcion no valida." << endl; break;
         }
@@ -130,14 +126,11 @@ void Sistema::menuGestionPedidos() {
     } while (opcion != 0);
 }
 
-
-// --- Implementación de Módulos ---
-
-void Sistema::listarEquipos() {
+void Sistema::listarAnimales() {
     utils::clearScreen();
-    cout << "--- Lista de Equipos Disponibles ---" << endl;
-    for (int i = 0; i < numEquipos; ++i) {
-        listaEquipos[i]->mostrar();
+    cout << "--- Lista de Carnes Disponibles ---" << endl;
+    for (int i = 0; i < numAnimales; ++i) {
+        listaAnimales[i]->mostrar();
     }
 }
 
@@ -175,12 +168,12 @@ void Sistema::altaPedido() {
     
     char agregarOtro;
     do {
-        domain::Equipo* equipo = seleccionarEquipo();
-        if (equipo) {
-            nuevoPedido.agregarEquipo(equipo);
-            cout << "Equipo agregado." << endl;
+        domain::Animal* animal = seleccionarAnimal();
+        if (animal) {
+            nuevoPedido.agregarAnimal(animal);
+            cout << "Carne agregada al pedido." << endl;
         }
-        cout << "Desea agregar otro equipo? (s/n): ";
+        cout << "Desea agregar otra carne? (s/n): ";
         cin >> agregarOtro;
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     } while (agregarOtro == 's' || agregarOtro == 'S');
@@ -229,8 +222,6 @@ void Sistema::modificarPedido() {
 
     if (index != -1) {
         cout << "Funcionalidad de modificacion no implementada en este prototipo." << endl;
-        // Aquí iría la lógica para modificar el pedido.
-        // Por ejemplo, permitir cambiar el cliente, empleado o agregar/quitar equipos.
     } else {
         cout << "Pedido no encontrado." << endl;
     }
@@ -268,11 +259,24 @@ void Sistema::mostrarPedidosClientes() {
             cout << "Este cliente no tiene pedidos registrados." << endl;
         }
     }
-    // Si no se selecciona un cliente, la función simplemente termina.
 }
 
+void Sistema::demoPolimorfismo() {
+    utils::clearScreen();
+    cout << "--- Demo Polimorfismo: Todos los animales Comen ---" << endl;
+    for (int i = 0; i < numAnimales; ++i) {
+        cout << "\nAnimal " << (i + 1) << ":" << endl;
+        listaAnimales[i]->mostrar();
+        listaAnimales[i]->comer();
+    }
 
-// --- Helpers Internos ---
+    cout << "\n\n--- Demo Polimorfismo: Todos los animales Duermen ---" << endl;
+    for (int i = 0; i < numAnimales; ++i) {
+        cout << "\nAnimal " << (i + 1) << ":" << endl;
+        listaAnimales[i]->mostrar();
+        listaAnimales[i]->dormir();
+    }
+}
 
 domain::Cliente* Sistema::seleccionarCliente() {
     cout << "\nSeleccione un cliente:" << endl;
@@ -308,18 +312,18 @@ domain::Empleado* Sistema::seleccionarEmpleado() {
     return NULL;
 }
 
-domain::Equipo* Sistema::seleccionarEquipo() {
-    cout << "\nSeleccione un equipo para agregar:" << endl;
-    for (int i = 0; i < numEquipos; ++i) {
-        cout << i + 1 << ". " << listaEquipos[i]->getNombre() << " ($" << listaEquipos[i]->getPrecio() << ")" << endl;
+domain::Animal* Sistema::seleccionarAnimal() {
+    cout << "\nSeleccione una carne para agregar al pedido:" << endl;
+    for (int i = 0; i < numAnimales; ++i) {
+        cout << i + 1 << ". " << listaAnimales[i]->getNombre() << " ($" << listaAnimales[i]->getPrecio() << ")" << endl;
     }
     cout << "Opcion: ";
     int opcion;
     cin >> opcion;
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    if (opcion > 0 && opcion <= numEquipos) {
-        return listaEquipos[opcion - 1];
+    if (opcion > 0 && opcion <= numAnimales) {
+        return listaAnimales[opcion - 1];
     }
     cout << "Seleccion invalida." << endl;
     return NULL;
@@ -331,7 +335,7 @@ int Sistema::findPedidoIndex(int id) {
             return i;
         }
     }
-    return -1; // No encontrado
+    return -1;
 }
 
 } // namespace app

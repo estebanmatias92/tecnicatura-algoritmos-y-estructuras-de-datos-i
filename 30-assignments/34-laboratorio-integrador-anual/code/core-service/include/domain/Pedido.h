@@ -3,32 +3,31 @@
 
 #include "domain/Cliente.h"
 #include "domain/Empleado.h"
-#include "domain/Equipo.h"
+#include "domain/Animal.h"
 
-// Forward declarations to avoid circular dependencies if needed, though not strictly necessary here.
 namespace app::domain {
     class Cliente;
     class Empleado;
-    class Equipo;
+    class Animal;
 }
 
 namespace app::domain {
 
-    const int MAX_EQUIPOS_POR_PEDIDO = 10; // As per diagram, MAX_POR_PEDIDO
+    const int MAX_ANIMALES_POR_PEDIDO = 10;
 
     class Pedido {
     private:
-        int id; // Added an ID for easier management
+        int id;
         Cliente* clienteAsignado;
         Empleado* empleadoAsignado;
-        Equipo* equiposDelPedido[MAX_EQUIPOS_POR_PEDIDO];
-        int numEquiposEnPedido;
+        Animal* animalesDelPedido[MAX_ANIMALES_POR_PEDIDO];
+        int numAnimalesEnPedido;
 
     public:
         Pedido();
         Pedido(int id, Cliente* cliente, Empleado* empleado);
 
-        void agregarEquipo(Equipo* equipo);
+        void agregarAnimal(Animal* animal);
         void mostrarDetalle();
 
         int getID() const;

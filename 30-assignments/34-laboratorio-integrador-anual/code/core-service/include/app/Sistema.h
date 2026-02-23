@@ -4,15 +4,14 @@
 #include "domain/Cliente.h"
 #include "domain/Empleado.h"
 #include "domain/Pedido.h"
-#include "domain/Equipo.h"
+#include "domain/Animal.h"
 
 namespace app {
 
-    // Constantes para los tamaños de los arrays (NFR-M1, NFR-M2)
     const int MAX_CLIENTES = 10;
     const int MAX_EMPLEADOS = 10;
     const int MAX_PEDIDOS = 50;
-    const int MAX_EQUIPOS = 20;
+    const int MAX_ANIMALES = 20;
 
     class Sistema {
     private:
@@ -22,12 +21,12 @@ namespace app {
         domain::Pedido listaPedidos[MAX_PEDIDOS];
         
         // Array de punteros a la base (NFR-M3)
-        domain::Equipo* listaEquipos[MAX_EQUIPOS];
+        domain::Animal* listaAnimales[MAX_ANIMALES];
         
         int numClientes;
         int numEmpleados;
         int numPedidos;
-        int numEquipos;
+        int numAnimales;
         int nextPedidoID;
 
         // Carga de datos estáticos (NFR-M.4)
@@ -38,7 +37,7 @@ namespace app {
         void menuGestionPedidos();
         
         // Módulos Estáticos (Solo Listar)
-        void listarEquipos();
+        void listarAnimales();
         void listarClientes();
         void listarEmpleados();
         
@@ -51,10 +50,13 @@ namespace app {
         // Módulo Reportes (FR-R1)
         void mostrarPedidosClientes();
 
+        // Módulo Polimorfismo (FR-P1)
+        void demoPolimorfismo();
+
         // Helpers internos
         domain::Cliente* seleccionarCliente();
         domain::Empleado* seleccionarEmpleado();
-        domain::Equipo* seleccionarEquipo();
+        domain::Animal* seleccionarAnimal();
         int findPedidoIndex(int id);
 
     public:

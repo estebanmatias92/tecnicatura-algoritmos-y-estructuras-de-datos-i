@@ -3,24 +3,24 @@
 namespace app::domain {
 
     Pedido::Pedido() 
-        : id(0), clienteAsignado(NULL), empleadoAsignado(NULL), numEquiposEnPedido(0) {
-        for (int i = 0; i < MAX_EQUIPOS_POR_PEDIDO; ++i) {
-            equiposDelPedido[i] = NULL;
+        : id(0), clienteAsignado(NULL), empleadoAsignado(NULL), numAnimalesEnPedido(0) {
+        for (int i = 0; i < MAX_ANIMALES_POR_PEDIDO; ++i) {
+            animalesDelPedido[i] = NULL;
         }
     }
 
     Pedido::Pedido(int id, Cliente* cliente, Empleado* empleado)
-        : id(id), clienteAsignado(cliente), empleadoAsignado(empleado), numEquiposEnPedido(0) {
-        for (int i = 0; i < MAX_EQUIPOS_POR_PEDIDO; ++i) {
-            equiposDelPedido[i] = NULL;
+        : id(id), clienteAsignado(cliente), empleadoAsignado(empleado), numAnimalesEnPedido(0) {
+        for (int i = 0; i < MAX_ANIMALES_POR_PEDIDO; ++i) {
+            animalesDelPedido[i] = NULL;
         }
     }
 
-    void Pedido::agregarEquipo(Equipo* equipo) {
-        if (numEquiposEnPedido < MAX_EQUIPOS_POR_PEDIDO) {
-            equiposDelPedido[numEquiposEnPedido++] = equipo;
+    void Pedido::agregarAnimal(Animal* animal) {
+        if (numAnimalesEnPedido < MAX_ANIMALES_POR_PEDIDO) {
+            animalesDelPedido[numAnimalesEnPedido++] = animal;
         } else {
-            std::cout << "No se pueden agregar mas equipos a este pedido." << std::endl;
+            std::cout << "No se pueden agregar mas carnes a este pedido." << std::endl;
         }
     }
 
@@ -32,13 +32,13 @@ namespace app::domain {
         if (empleadoAsignado) {
             std::cout << "Vendedor: " << empleadoAsignado->getNombreCompleto() << " (Legajo: " << empleadoAsignado->getLegajo() << ")" << std::endl;
         }
-        std::cout << "Equipos en el pedido:" << std::endl;
-        if (numEquiposEnPedido == 0) {
+        std::cout << "Carnes en el pedido:" << std::endl;
+        if (numAnimalesEnPedido == 0) {
             std::cout << "  (Ninguno)" << std::endl;
         } else {
-            for (int i = 0; i < numEquiposEnPedido; ++i) {
-                if (equiposDelPedido[i]) {
-                    equiposDelPedido[i]->mostrar();
+            for (int i = 0; i < numAnimalesEnPedido; ++i) {
+                if (animalesDelPedido[i]) {
+                    animalesDelPedido[i]->mostrar();
                 }
             }
         }
