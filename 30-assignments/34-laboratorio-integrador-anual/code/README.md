@@ -1,4 +1,4 @@
-# Algoritmos y Estructuras de Datos I - Parcial 02 - Simulación
+# Algoritmos y Estructuras de Datos I - Unidad 11 - Laboratorio 20 - Integrador Anual
 
 ## Descripción
 
