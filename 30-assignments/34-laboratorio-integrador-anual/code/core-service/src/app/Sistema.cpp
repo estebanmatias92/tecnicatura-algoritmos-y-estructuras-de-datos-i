@@ -220,11 +220,98 @@ void Sistema::modificarPedido() {
 
     int index = findPedidoIndex(id);
 
-    if (index != -1) {
-        cout << "Funcionalidad de modificacion no implementada en este prototipo." << endl;
-    } else {
+    if (index == -1) {
         cout << "Pedido no encontrado." << endl;
+        return;
     }
+
+    domain::Pedido& pedido = listaPedidos[index];
+    int opcion;
+
+    do {
+        utils::clearScreen();
+        cout << "--- Modificar Pedido ID: " << id << " ---" << endl;
+        cout << "1. Cambiar Cliente" << endl;
+        cout << "2. Cambiar Empleado" << endl;
+        cout << "3. Agregar Carne" << endl;
+        cout << "4. Quitar Carne" << endl;
+        cout << "5. Ver Detalle del Pedido" << endl;
+        cout << "----------------------------" << endl;
+        cout << "0. Volver" << endl;
+        cout << "============================" << endl;
+        cout << "Ingrese su opcion: ";
+
+        if (!(cin >> opcion)) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            opcion = -1;
+        } else {
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
+        switch (opcion) {
+            case 1: {
+                domain::Cliente* nuevoCliente = seleccionarCliente();
+                if (nuevoCliente) {
+                    pedido.setCliente(nuevoCliente);
+                    cout << "Cliente actualizado." << endl;
+                }
+                break;
+            }
+            case 2: {
+                domain::Empleado* nuevoEmpleado = seleccionarEmpleado();
+                if (nuevoEmpleado) {
+                    pedido.setEmpleado(nuevoEmpleado);
+                    cout << "Empleado actualizado." << endl;
+                }
+                break;
+            }
+            case 3: {
+                domain::Animal* animal = seleccionarAnimal();
+                if (animal) {
+                    pedido.agregarAnimal(animal);
+                    cout << "Carne agregada al pedido." << endl;
+                }
+                break;
+            }
+            case 4: {
+                if (pedido.getNumAnimales() == 0) {
+                    cout << "No hay carnes en el pedido." << endl;
+                } else {
+                    cout << "Carnes en el pedido:" << endl;
+                    for (int i = 0; i < pedido.getNumAnimales(); ++i) {
+                        domain::Animal* a = pedido.getAnimal(i);
+                        if (a) {
+                            cout << i + 1 << ". " << a->getNombre() << " ($" << a->getPrecio() << ")" << endl;
+                        }
+                    }
+                    cout << "Ingrese el numero de carne a quitar: ";
+                    int idx;
+                    cin >> idx;
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    pedido.quitarAnimal(idx - 1);
+                    cout << "Carne eliminada del pedido." << endl;
+                }
+                break;
+            }
+            case 5: {
+                pedido.mostrarDetalle();
+                break;
+            }
+            case 0: {
+                break;
+            }
+            default: {
+                cout << "Opcion no valida." << endl;
+                break;
+            }
+        }
+
+        if (opcion != 0) {
+            utils::pauseConsole("Presione ENTER para continuar...");
+        }
+
+    } while (opcion != 0);
 }
 
 void Sistema::listarPedidos() {

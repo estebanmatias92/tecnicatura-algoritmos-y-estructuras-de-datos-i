@@ -24,6 +24,48 @@ namespace app::domain {
         }
     }
 
+    void Pedido::quitarAnimal(int indice) {
+        if (indice < 0 || indice >= numAnimalesEnPedido) {
+            std::cout << "Indice invalido." << std::endl;
+            return;
+        }
+        for (int i = indice; i < numAnimalesEnPedido - 1; ++i) {
+            animalesDelPedido[i] = animalesDelPedido[i + 1];
+        }
+        animalesDelPedido[numAnimalesEnPedido - 1] = NULL;
+        numAnimalesEnPedido--;
+    }
+
+    void Pedido::vaciarAnimales() {
+        for (int i = 0; i < numAnimalesEnPedido; ++i) {
+            animalesDelPedido[i] = NULL;
+        }
+        numAnimalesEnPedido = 0;
+    }
+
+    void Pedido::setCliente(Cliente* cliente) {
+        clienteAsignado = cliente;
+    }
+
+    void Pedido::setEmpleado(Empleado* empleado) {
+        empleadoAsignado = empleado;
+    }
+
+    Empleado* Pedido::getEmpleado() const {
+        return empleadoAsignado;
+    }
+
+    int Pedido::getNumAnimales() const {
+        return numAnimalesEnPedido;
+    }
+
+    Animal* Pedido::getAnimal(int indice) const {
+        if (indice >= 0 && indice < numAnimalesEnPedido) {
+            return animalesDelPedido[indice];
+        }
+        return NULL;
+    }
+
     void Pedido::mostrarDetalle() {
         std::cout << "--- Pedido ID: " << id << " ---" << std::endl;
         if (clienteAsignado) {

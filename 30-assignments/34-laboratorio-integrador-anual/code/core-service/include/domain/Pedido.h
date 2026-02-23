@@ -28,10 +28,18 @@ namespace app::domain {
         Pedido(int id, Cliente* cliente, Empleado* empleado);
 
         void agregarAnimal(Animal* animal);
+        void quitarAnimal(int indice);
+        void vaciarAnimales();
         void mostrarDetalle();
+
+        void setCliente(Cliente* cliente);
+        void setEmpleado(Empleado* empleado);
 
         int getID() const;
         Cliente* getCliente() const;
+        Empleado* getEmpleado() const;
+        int getNumAnimales() const;
+        Animal* getAnimal(int indice) const;
     };
 
 } // namespace app::domain

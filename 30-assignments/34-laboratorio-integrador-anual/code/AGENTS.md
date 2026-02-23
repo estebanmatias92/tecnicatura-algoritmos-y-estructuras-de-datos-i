@@ -23,6 +23,7 @@ g++ -std=c++17 -I./include \
   src/main.cpp src/app/Sistema.cpp \
   src/domain/Cliente.cpp src/domain/Empleado.cpp \
   src/domain/Pedido.cpp src/domain/Animal.cpp \
+  src/domain/Pollo.cpp src/domain/Vacuno.cpp src/domain/Cerdo.cpp \
   src/utils/helpers.cpp -o build/main
 ```
 
@@ -98,12 +99,23 @@ public:
 code/core-service/
 ├── include/
 │   ├── app/Sistema.h
-│   ├── domain/{Animal,Cliente,Empleado,Pedido}.h
+│   ├── domain/
+│   │   ├── Animal.h
+│   │   ├── Cliente.h
+│   │   ├── Empleado.h
+│   │   └── Pedido.h
 │   └── utils/helpers.h
 └── src/
     ├── main.cpp
     ├── app/Sistema.cpp
-    ├── domain/*.cpp
+    ├── domain/
+    │   ├── Animal.cpp
+    │   ├── Pollo.cpp
+    │   ├── Vacuno.cpp
+    │   ├── Cerdo.cpp
+    │   ├── Cliente.cpp
+    │   ├── Empleado.cpp
+    │   └── Pedido.cpp
     └── utils/helpers.cpp
 ```
 
@@ -126,6 +138,3 @@ code/core-service/
 - **Animales**: 7 products (P001-P003, V001-V002, C001-C002)
 - **Clientes**: 3 (Juan Lopez, Maria Garcia, Carlos Rodriguez)
 - **Empleados**: 2 (Pedro Martinez, Laura Fernandez)
-
-## Known Issues
-- Console clear may fail with piped input

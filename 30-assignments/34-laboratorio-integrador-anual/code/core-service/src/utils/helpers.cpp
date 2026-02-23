@@ -2,7 +2,8 @@
 #include <iostream>
 #include <limits>
 #include <string>
-#include <cstdlib> // Required for the system() function
+#include <cstdlib>
+#include <unistd.h>
 
 // Using declarations for convenience
 using std::cin;
@@ -15,15 +16,10 @@ using std::streamsize;
 namespace app {
 namespace utils {
 
-// ----------------------------------------------------------------------------------
-// --- Utility Function Implementation ---
-// ----------------------------------------------------------------------------------
-
-/**
- * @brief Helper function to clear the console screen.
- * * Uses operating system specific commands.
- */
 void clearScreen() {
+    if (!isatty(STDIN_FILENO)) {
+        return;
+    }
     #ifdef _WIN32
         system("cls");
     #else
